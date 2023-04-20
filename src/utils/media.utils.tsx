@@ -43,18 +43,17 @@ const backdrop_sizes : ImageURLS = {
 //   "original"
 // ]
 
-type KeyT = keyof typeof backdrop_sizes;
 
 export const getPosterFullUrl = (relativePath : string) => {
   return relativePath ? `https://image.tmdb.org/t/p/w500${relativePath}` : undefined;
 }
 
-export const getMediaFullUrls = (relativePath : string) => {
+export const getMediaFullUrls = (relativePath : string) : ImageURLS | null => {
   if (!relativePath) return null
-  return (Object.keys(backdrop_sizes) as Array<keyof typeof backdrop_sizes>).reduce((result, key : KeyT) => {
-    result[key as KeyT] = `https://image.tmdb.org/t/p/${backdrop_sizes[key]}${relativePath}`
+  return (Object.entries(backdrop_sizes)).reduce((result, [key, value]) => {
+    result[key] = `https://image.tmdb.org/t/p/${value}${relativePath}`
     return result
-  }, {} as typeof backdrop_sizes[KeyT])
+  }, {...backdrop_sizes} as ImageURLS)
 } 
 
 export const getYoutubeEmbeded = (reference : string) : ReactElement | undefined => {
