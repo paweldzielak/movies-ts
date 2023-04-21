@@ -1,4 +1,4 @@
-import { Movie } from "../../types/types";
+import { MovieT } from "../types/types";
 
 export enum BookmarkActionKind {
   ADD_FAVORITE_MOVIE = 'ADD_FAVORITE_MOVIE',
@@ -7,16 +7,16 @@ export enum BookmarkActionKind {
 
 interface UserDataAction {
   type: BookmarkActionKind;
-  payload: Movie;
+  payload: MovieT;
 }
 
-export const userDataReducer = (state: Movie[], action: UserDataAction): Movie[] => {
+export const userDataReducer = (state: MovieT[], action: UserDataAction): MovieT[] => {
   const { type, payload} = action;
   switch (type) {
     case BookmarkActionKind.ADD_FAVORITE_MOVIE:
       return [...state, payload ]
     case BookmarkActionKind.REMOVE_BOOKMARKED_RECIPE:
-      return state.filter((movie:Movie) => movie.id !== payload.id);
+      return state.filter((movie:MovieT) => movie.id !== payload.id);
     default:
       return state;
   }
