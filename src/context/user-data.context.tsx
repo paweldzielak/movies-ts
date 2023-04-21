@@ -1,12 +1,12 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { userDataReducer } from "../reducers/userDataReducer";
-import { Movie } from "../../types/types";
+import { MovieT } from "../types/types";
 import { BookmarkActionKind } from "../reducers/userDataReducer";
 
 export type MovieContextState = {
-  favoritesMovies: Movie[];
-  handleBookmarked: (movie: Movie) => void;
+  favoritesMovies: MovieT[];
+  handleBookmarked: (movie: MovieT) => void;
 };
 
 export const contextDefaultValues: MovieContextState = {
@@ -21,7 +21,7 @@ export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Ele
 
   const [currentFavoritesMovies, dispatch] = useReducer(userDataReducer, favoritesMovies || []);
 
-  const handleBookmarked = (movie: Movie) => {
+  const handleBookmarked = (movie: MovieT) => {
     const type = favoritesMovies?.includes(movie) 
     ? BookmarkActionKind.REMOVE_BOOKMARKED_RECIPE 
     : BookmarkActionKind.ADD_FAVORITE_MOVIE;
