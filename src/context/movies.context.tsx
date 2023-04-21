@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import React, { useMemo } from "react";
 import {
   createContext,
   useState,
@@ -12,18 +12,23 @@ import { getDiscoverMovies } from "../utils/movie.utils";
 import { getPosterFullUrl } from "../utils/media.utils";
 import { MovieT, FilteredYearT } from "../types/types";
 
+export type MovieContextState = {
+  currentMovies : MovieT[],
+  setCurrentMovies : (currentMovies: MovieT[]) => void,
+  handleLoadMoreMovies: (currentGenreMap: Map<number, string>, currentPage: number, currentMovies: MovieT[], filteredGenreIds: number, filteredYears: FilteredYearT[]) => void,
+  setFilteredYears: (filteredYears: FilteredYearT[]) => void,
+  filteredYears: FilteredYearT[],
+  totalResults: number
+};
 
-export const MovieContext = createContext({
-  currentMovies: [],
-  handleLoadMoreMovies: () => {},
-  totalResults: 0
-});
+
+export const MovieContext = createContext({} as MovieContextState);
 
 export const MoviesProvider = ({ children }: { children: JSX.Element | JSX.Element[]; }) => {
-  const [currentMovies, setCurrentMovies] = useState([] as MovieT[]);
+  const [currentMovies, setCurrentMovies] = useState<MovieT[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
-  const [filteredYears, setFilteredYears] = useState([] as FilteredYearT[]);
+  const [filteredYears, setFilteredYears] = useState<FilteredYearT[]>([]);
   const { currentGenreMap, filteredGenreIds } = useContext(GenresContext);
 
   const handleCurrentMovies = useCallback(
@@ -56,7 +61,7 @@ export const MoviesProvider = ({ children }: { children: JSX.Element | JSX.Eleme
 
   const handleLoadMoreMovies = useCallback(() => {
     handleCurrentMovies(currentGenreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
-  })
+  }, [])
 
   const contextValue = useMemo(() => ({
     currentMovies,

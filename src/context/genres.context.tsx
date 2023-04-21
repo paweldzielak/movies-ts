@@ -8,17 +8,11 @@ export type GenresContextState = {
   changeFilteredGenreIds: (filteredGenresIds: number[]) => void;
 };
 
-const contextDefaultValues: GenresContextState = {
-  currentGenreMap: new Map(),
-  filteredGenreIds: [],
-  changeFilteredGenreIds: () => {},
-};
-
-export const GenresContext = createContext<GenresContextState>(contextDefaultValues);
+export const GenresContext = createContext({} as GenresContextState);
 
 export const GenreContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
-  const [currentGenreMap, setCurrentGenreMap] = useState<Map<number, string>>();
-  const [filteredGenreIds, setFilteredGenreIds] = useState<number[]>();
+  const [currentGenreMap, setCurrentGenreMap] = useState<Map<number, string>>(new Map());
+  const [filteredGenreIds, setFilteredGenreIds] = useState<number[]>([]);
 
   const changeFilteredGenreIds = useCallback((filteredGenresIds: number[]) => {
     setFilteredGenreIds(filteredGenresIds);
@@ -34,8 +28,8 @@ export const GenreContextProvider = ({ children }: { children: JSX.Element | JSX
 
   const contextValue = useMemo(
     () => ({
-      currentGenreMap: currentGenreMap || contextDefaultValues.currentGenreMap,
-      filteredGenreIds: filteredGenreIds || contextDefaultValues.filteredGenreIds,
+      currentGenreMap,
+      filteredGenreIds,
       changeFilteredGenreIds,
     }),
     [currentGenreMap, filteredGenreIds, changeFilteredGenreIds]
