@@ -1,39 +1,30 @@
-import React, { useMemo, useCallback } from "react";
+import React, { FC, PropsWithChildren } from "react";
 import { createContext, useState, useEffect } from "react";
 import { getGenresMapFromAPI } from "../utils/movie.utils";
 
-export type GenresContextState = {
+type GenresContextState = {
   currentGenreMap: Map<number, string>;
   filteredGenreIds: number[];
-  changeFilteredGenreIds: (filteredGenresIds: number[]) => void;
+  setFilteredGenreIds: (filteredGenresIds: number[]) => void;
 };
 
-export const GenresContext = createContext({} as GenresContextState);
+const GenresContext = createContext({} as GenresContextState);
 
-export const GenreContextProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
+export const GenreContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [currentGenreMap, setCurrentGenreMap] = useState<Map<number, string>>(new Map());
   const [filteredGenreIds, setFilteredGenreIds] = useState<number[]>([]);
 
-  const changeFilteredGenreIds = useCallback((filteredGenresIds: number[]) => {
-    setFilteredGenreIds(filteredGenresIds);
-  }, []);
-
   useEffect(() => {
-    const setGenres = async () => {
-      const genreMap = await getGenresMapFromAPI();
-      setCurrentGenreMap(genreMap);
-    };
-    setGenres();
+    getGenresMapFromAPI().then((genreMap) => setCurrentGenreMap(genreMap));
   }, []);
 
-  const contextValue = useMemo(
-    () => ({
-      currentGenreMap,
-      filteredGenreIds,
-      changeFilteredGenreIds,
-    }),
-    [currentGenreMap, filteredGenreIds, changeFilteredGenreIds]
-  );
+  return <GenresContext.Provider value={{ currentGenreMap, filteredGenreIds, setFilteredGenreIds }}>{children}</GenresContext.Provider>;
+};
 
-  return <GenresContext.Provider value={contextValue}>{children}</GenresContext.Provider>;
+export const useGenreContext = () => {
+  const context = React.useContext(GenresContext);
+
+  if (!context) throw new Error("useGenreContextProvider must be used inside GenresContext.Provider");
+
+  return context;
 };

@@ -1,0 +1,40 @@
+.navbar-container-wrapper {
+  font-size: 1.6rem;
+  width: 100%;
+  background-color: #3c3c3c;
+  padding: 1rem 0;
+
+  .navbar-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .navbar-filters-button {
+      color: whitesmoke;
+      width: 30rem;
+      line-height: 4.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 0.2rem 3rem;
+      height: 100%;
+      margin-left: auto;
+      margin-right: 1rem;
+
+      &:hover {
+        background-color: #0096fb;
+        border-color: #0096fb;
+      }
+
+    }
+
+    .navbar-filter-button-counter {
+      margin-left: 0.5rem;
+      padding: 1px 7px;
+      border-radius: 6px;
+      background-color: #0096fb;
+      color: white;
+      font-weight: bold;
+    }
+  }
+}

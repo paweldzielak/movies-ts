@@ -1,0 +1,60 @@
+.nav-bar-filters-container {
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  margin-top: 1rem;
+  border-radius: 4px;
+  justify-content: space-between;
+  gap: 2rem;
+
+  h2.multiselect-label {
+    font-size: 1.3rem;
+    padding: 0px 6px;
+    width: min-content;
+    white-space: nowrap;
+    margin-bottom: -29px;
+    margin-left: 2%;
+    background:white;
+    z-index: 1;
+  }
+
+  .react-select-container {
+    * {
+      font-size: 1.6rem;
+    }
+
+    .react-select__value-container {
+      padding: 1rem;
+    }
+
+    .react-select__multi-value {
+      margin: 0.5rem;
+    }
+
+    .react-select__multi-value__remove {
+      &:hover {
+        background-color: hsl(0, 0%, 80%);
+        svg {
+          color: #3c3c3c;
+        }
+      }
+      svg {
+        height: 2rem;
+        width: 2rem;
+      }
+    }
+    div.react-select__indicator {
+      &:hover {
+        background-color: whitesmoke;
+        cursor: pointer;
+
+        svg {
+          color: #3c3c3c;
+        }
+      }
+    }
+    .react-select__menu {
+      z-index: 2;
+    }
+  } 
+}

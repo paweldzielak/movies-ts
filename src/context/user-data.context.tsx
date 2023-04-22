@@ -23,7 +23,7 @@ export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Ele
 
   const handleBookmarked = (movie: MovieT) => {
     const type = favoritesMovies?.includes(movie) 
-    ? BookmarkActionKind.REMOVE_BOOKMARKED_RECIPE 
+    ? BookmarkActionKind.REMOVE_BOOKMARKED_MOVIE 
     : BookmarkActionKind.ADD_FAVORITE_MOVIE;
     dispatch({ type, payload: movie });
   };
