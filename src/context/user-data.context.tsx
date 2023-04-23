@@ -22,9 +22,9 @@ export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Ele
   const [currentFavoritesMovies, dispatch] = useReducer(userDataReducer, favoritesMovies || []);
 
   const handleBookmarked = (movie: MovieT) => {
-    const type = favoritesMovies?.includes(movie) 
-    ? BookmarkActionKind.REMOVE_BOOKMARKED_MOVIE 
-    : BookmarkActionKind.ADD_FAVORITE_MOVIE;
+    const type:BookmarkActionKind = favoritesMovies?.includes(movie) 
+    ?  'ADD_FAVORITE_MOVIE'
+    : 'REMOVE_BOOKMARKED_MOVIE';
     dispatch({ type, payload: movie });
   };
 
