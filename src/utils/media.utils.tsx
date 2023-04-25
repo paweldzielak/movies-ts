@@ -48,8 +48,7 @@ export const getPosterFullUrl = (relativePath : string | null) : string | null =
   return relativePath ? `https://image.tmdb.org/t/p/w500${relativePath}` : null;
 }
 
-export const getMediaFullUrls = (relativePath : string) : ImageURLS | null => {
-  if (!relativePath) return null
+export const getMediaFullUrls = (relativePath : string) : ImageURLS=> {
   return (Object.entries(backdrop_sizes)).reduce((result, [key, value]) => {
     result[key] = `https://image.tmdb.org/t/p/${value}${relativePath}`
     return result

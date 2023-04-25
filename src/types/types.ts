@@ -100,9 +100,9 @@ export interface SpokenLanguagesEntity {
   name: string;
 }
 export interface MovieImages {
-  backdrops?: (BackdropsEntityOrPostersEntity)[] | null;
-  logos?: (LogosEntity)[] | null;
-  posters?: (BackdropsEntityOrPostersEntity)[] | null;
+  backdrops: (BackdropsEntityOrPostersEntity)[];
+  logos: (LogosEntity)[];
+  posters: (BackdropsEntityOrPostersEntity)[];
 }
 export interface BackdropsEntityOrPostersEntity {
   aspect_ratio: number;

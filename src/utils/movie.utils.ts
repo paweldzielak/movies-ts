@@ -50,7 +50,7 @@ export const getDiscoverMovies = async (page: string | number, filteredGenreIds:
   return await getMoviesByUrl(url);
 }
 
-export const getMovieMoreDetails = async (apiInternalMovieId: string, includeVideos = true, includeImages = true) => {
+export const getMovieMoreDetails = async (apiInternalMovieId: number, includeVideos = true, includeImages = true) => {
   const includeParamStr = `${includeImages ? 'images,' : ''}${includeVideos ? 'videos' : ''} `;
   const url = `https://api.themoviedb.org/3/movie/${apiInternalMovieId}?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&append_to_response=${includeParamStr}`;
   const details = await getMoviesByUrl(url);
@@ -59,7 +59,7 @@ export const getMovieMoreDetails = async (apiInternalMovieId: string, includeVid
 
 type RsortByT = 'popularity' | 'vote_average' | 'vote_count';
 
-export const getMovieRecommendations = async (apiInternalMovieId: string, sortBy: RsortByT, page = 1, all = true) => {
+export const getMovieRecommendations = async (apiInternalMovieId: number, sortBy: RsortByT = 'popularity', page = 1, all = true) => {
   const urlPageTemplate = `https://api.themoviedb.org/3/movie/${apiInternalMovieId}/recommendations?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&page=`
   const recommendations = await getMoviesByUrl(`${urlPageTemplate}${page}`);
 
