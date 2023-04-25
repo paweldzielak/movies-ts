@@ -8,9 +8,9 @@ import "./movieDetails.styles.scss";
 import { useBreakpoint } from "@chakra-ui/react";
 import { getMovieRecommendations } from "../../utils/movie.utils";
 import MovieRecommendations from "./MovieRecommendations";
-import { MovieDetails, Recommendation } from "../../types/types";
+import { MovieDetailsT, Recommendation } from "../../types/types";
 
-const MovieDetails: React.FC<MovieDetails> = (details) => {
+const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
   const { images, videos } = details;
   const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
 

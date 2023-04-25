@@ -1,0 +1,92 @@
+$summary-top-margin: 6rem;
+
+.movie-card {
+  font-size: 1.4rem;
+
+  vertical-align: auto;
+  display: flex;
+  justify-content: space-between;
+
+  gap: 1rem;
+  margin: 1.5rem;
+  background-color: white;
+  border-radius: 1em;
+  box-shadow: rgba(19, 15, 235, 0.1) 1px 2px 20px;
+  padding: 0.5rem;
+
+  max-width: 120rem;
+  margin-left: auto;
+  margin-right: auto;
+
+  & > * {
+    padding: 0 2.5rem;
+  }
+
+  @media only screen and (max-width: 1200px) {
+    border-radius: 0;
+  }
+
+  .title-description-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .poster {
+    flex: 0;
+    margin: auto 0.8rem;
+    height: 30rem;
+    background-size: cover;
+    background-position: center;
+    border-radius: 1.2rem;
+    padding: 0;
+  }
+
+  .description {
+    margin: 0.5rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: justify;
+    text-justify: inter-word;
+    flex: 1;
+    line-height: 2.5rem;
+  }
+
+  .vote-favorite-container {
+    margin: 0.5rem 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .vote {
+      height: 4rem;
+      width: 6rem;
+
+      font-size: 1.8rem;
+
+      background-color: rgb(100, 94, 94);
+      font-weight: bold;
+      color: gold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      border: 1px solid #3c3c3c;
+      border-radius: 0.8rem;
+    }
+
+    .favoriteButton {
+      cursor: pointer;
+      margin-top: $summary-top-margin;
+      height: 3.5rem;
+      width: 3.5rem;
+    }
+
+    .imdb-img {
+      margin-top: $summary-top-margin;
+      cursor: pointer;
+    }
+  }
+}

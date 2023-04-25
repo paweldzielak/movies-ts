@@ -5,7 +5,7 @@ type TitleProps = {
   title: string;
   genres: string[];
   openDetails: () => void;
-  releaseYear: string | number;
+  releaseYear: string | number | null;
 };
 
 const Title = ({ title, genres, openDetails, releaseYear }: TitleProps) => {
@@ -23,9 +23,9 @@ const Title = ({ title, genres, openDetails, releaseYear }: TitleProps) => {
           <span key={title + genre} className="genre">{` ${genre}`}</span>
         ))}
       </div>
-      <span className="year" onClick={handleClickYearClick}>
+      {!!releaseYear && <span className="year" onClick={handleClickYearClick}>
         {releaseYear}
-      </span>
+      </span>}
     </div>
   );
 };

@@ -36,7 +36,7 @@ export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Ele
     <UserDataContext.Provider 
       value={{ 
         favoritesMovies: currentFavoritesMovies || [],
-        handleBookmarked: handleBookmarked 
+        handleBookmarked 
       }}
     >
       {children}

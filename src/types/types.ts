@@ -16,9 +16,10 @@ export interface MovieT {
   original_language: string;
   original_title: string;
   overview: string;
-  poster_path: string | null;
+  poster_path: string;
   media_type: string;
   genre_ids?: (number)[] | null;
+  genres: string[];
   popularity: number;
   release_date: string;
   video: boolean;
@@ -45,7 +46,7 @@ export interface Recommendation {
 }
 
 
-export interface MovieDetails {
+export interface MovieDetailsT {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: BelongsToCollection;
