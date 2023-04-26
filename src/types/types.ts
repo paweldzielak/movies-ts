@@ -8,7 +8,7 @@ export type FilteredYearT = {
     "value": number;
 }
 
-export interface MovieT {
+export type MovieT = {
   adult: boolean;
   backdrop_path: string;
   id: number;
@@ -27,7 +27,7 @@ export interface MovieT {
   vote_count: number;
 }
 
-export interface Recommendation {
+export type Recommendation = {
   adult: boolean;
   backdrop_path: string;
   id: number;
@@ -46,7 +46,7 @@ export interface Recommendation {
 }
 
 
-export interface MovieDetailsT {
+export type MovieDetailsT = {
   adult: boolean;
   backdrop_path: string;
   belongs_to_collection: BelongsToCollection;
@@ -75,37 +75,37 @@ export interface MovieDetailsT {
   images: MovieImages;
   videos: MovieYTVideos;
 }
-export interface BelongsToCollection {
+export type BelongsToCollection = {
   id: number;
   name: string;
   poster_path: string;
   backdrop_path: string;
 }
-export interface GenresEntity {
+export type GenresEntity = {
   id: number;
   name: string;
 }
-export interface ProductionCompaniesEntity {
+export type ProductionCompaniesEntity = {
   id: number;
   logo_path?: string | null;
   name: string;
   origin_country: string;
 }
-export interface ProductionCountriesEntity {
+export type ProductionCountriesEntity = {
   iso_3166_1: string;
   name: string;
 }
-export interface SpokenLanguagesEntity {
+export type SpokenLanguagesEntity = {
   english_name: string;
   iso_639_1: string;
   name: string;
 }
-export interface MovieImages {
+export type MovieImages = {
   backdrops: (BackdropsEntityOrPostersEntity)[];
   logos: (LogosEntity)[];
   posters: (BackdropsEntityOrPostersEntity)[];
 }
-export interface BackdropsEntityOrPostersEntity {
+export type BackdropsEntityOrPostersEntity = {
   aspect_ratio: number;
   height: number;
   iso_639_1?: string | null;
@@ -114,7 +114,7 @@ export interface BackdropsEntityOrPostersEntity {
   vote_count: number;
   width: number;
 }
-export interface LogosEntity {
+export type LogosEntity = {
   aspect_ratio: number;
   height: number;
   iso_639_1: string;
@@ -123,10 +123,10 @@ export interface LogosEntity {
   vote_count: number;
   width: number;
 }
-export interface MovieYTVideos {
+export type MovieYTVideos = {
   results?: (VideoResultsEntity)[] | null;
 }
-export interface VideoResultsEntity {
+export type VideoResultsEntity = {
   iso_639_1: string;
   iso_3166_1: string;
   name: string;

@@ -2,12 +2,7 @@ import React from "react";
 import { Recommendation } from "../../types/types";
 
 const MovieRecommendations: React.FC<{recommendations: Recommendation[]}> = ({ recommendations }) => {
-  if (recommendations) {
-    console.log("recommendations[0]", recommendations[0]);
-  }
-
   const getRecommendation = (r: Recommendation) => {
-    console.log("recommendation", r);
     return <div>{r.title}</div>;
   };
 
