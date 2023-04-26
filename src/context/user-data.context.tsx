@@ -1,12 +1,11 @@
 import React, { createContext, useEffect, useReducer } from "react";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { userDataReducer } from "../reducers/userDataReducer";
-import { MovieT } from "../types/types";
 import { BookmarkActionKind } from "../reducers/userDataReducer";
 
 export type MovieContextState = {
-  favoritesMovies: MovieT[];
-  handleBookmarked: (movie: MovieT) => void;
+  favoritesMovies: number[];
+  handleBookmarked: (movieId: number) => void;
 };
 
 export const contextDefaultValues: MovieContextState = {
@@ -16,16 +15,13 @@ export const contextDefaultValues: MovieContextState = {
 
 export const UserDataContext = createContext<MovieContextState>(contextDefaultValues);
 
-export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Element[]; }) => {
+export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   const [favoritesMovies, setFavoritesMovies] = useLocalStorage("favoritesMovies", contextDefaultValues.favoritesMovies);
-
   const [currentFavoritesMovies, dispatch] = useReducer(userDataReducer, favoritesMovies || []);
 
-  const handleBookmarked = (movie: MovieT) => {
-    const type:BookmarkActionKind = favoritesMovies?.includes(movie) 
-    ?  'ADD_FAVORITE_MOVIE'
-    : 'REMOVE_BOOKMARKED_MOVIE';
-    dispatch({ type, payload: movie });
+  const handleBookmarked = (movieId: number) => {
+    const type: BookmarkActionKind = favoritesMovies?.includes(movieId) ? "REMOVE_BOOKMARKED_MOVIE" : "ADD_FAVORITE_MOVIE";
+    dispatch({ type, payload: movieId });
   };
 
   useEffect(() => {
@@ -33,12 +29,13 @@ export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Ele
   }, [currentFavoritesMovies, setFavoritesMovies]);
 
   return (
-    <UserDataContext.Provider 
-      value={{ 
+    <UserDataContext.Provider
+      value={{
         favoritesMovies: currentFavoritesMovies || [],
-        handleBookmarked 
+        handleBookmarked,
       }}
     >
       {children}
-    </UserDataContext.Provider>);
+    </UserDataContext.Provider>
+  );
 };

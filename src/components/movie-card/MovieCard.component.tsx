@@ -25,8 +25,12 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildre
     return details;
   };
 
-  const isFavorite = favoritesMovies.includes(movie);
+  const isFavorite = favoritesMovies.includes(movie.id);
+  if (movie.id === 278) {
+    console.log("favoritesMovies", movie.id, isFavorite);
+  }
 
+  
   const handleImdb = async () => {
     const details = await getDetails();
     const { imdb_id } = details;
@@ -63,7 +67,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildre
           alt={`${movie.id}-favoriteButton`}
           src={`${window.location.origin}/${isFavorite ? "favorite" : "notfavorite"}.svg`}
           title={isFavorite ? "Remove from favorites" : "Add to favorites"}
-          onClick={() => handleBookmarked(movie)}
+          onClick={() => handleBookmarked(movie.id)}
         />
         <img
           className="imdb-img"
