@@ -26,10 +26,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildre
   };
 
   const isFavorite = favoritesMovies.includes(movie.id);
-  if (movie.id === 278) {
-    console.log("favoritesMovies", movie.id, isFavorite);
-  }
-
   
   const handleImdb = async () => {
     const details = await getDetails();
