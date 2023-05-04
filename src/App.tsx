@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import { UserDataProvider } from "./context/user-data.context";
-import { MovieContext } from "./context/movies.context";
+import { useMovieContext } from "./context/movies.context";
 
 import NavBar from "./components/nav-bar/NavBar.component";
 import MovieCard from "./components/movie-card/MovieCard.component";
@@ -21,7 +21,7 @@ import MovieCard from "./components/movie-card/MovieCard.component";
 import "./App.css";
 
 const App = () => {
-  const { currentMovies, handleLoadMoreMovies, totalResults } = useContext(MovieContext);
+  const { currentMovies, handleLoadMoreMovies, totalResults } = useMovieContext();
   const isMoreLoadAvailable = currentMovies.length && currentMovies.length !== totalResults;
 
   const [modalChildren, setModalChildren] = useState(null);

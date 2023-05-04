@@ -7,32 +7,25 @@ import { Carousel } from "react-responsive-carousel";
 import "./movieDetails.styles.scss";
 import { useBreakpoint } from "@chakra-ui/react";
 import { getMovieRecommendations } from "../../utils/movie.utils";
-import MovieRecommendations from "./MovieRecommendations";
-import { MovieDetailsT, Recommendation } from "../../types/types";
+import { MovieDetailsT, RecommendationT } from "../../types/types";
+import Recommendation from "./MovieRecommendation";
 
 const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
   const { images, videos } = details;
-  const [recommendations, setRecommendations] = useState<Recommendation[]>([]);
+  const [recommendations, setRecommendations] = useState<RecommendationT[]>([]);
 
   const getTitles = () => {
-    if (details.original_title === details.title) {
-      return <span>{details.title}</span>;
-    }
-    return (
-      <>
+    return (details.original_title === details.title) 
+    ? <span>{details.title}</span>
+    : <>
         <span>{details.title}</span>
         <span>{details.original_title}</span>
       </>
-    );
   };
 
   useEffect(() => {
-    getMovieRecommendations(details.id).then((r: Recommendation[]) => setRecommendations(r));
+    getMovieRecommendations(details.id).then((r: RecommendationT[]) => setRecommendations(r));
   }, []);
-
-  // videos.results.forEach((video) => {
-  //   console.log(video);
-  // });
 
   const imageSize = "md"; // change when other items are present
   const breakpoint = useBreakpoint({ ssr: false });
@@ -52,7 +45,6 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
         autoPlay
         infiniteLoop
         interval={5000}
-        // showArrows={false}
         showStatus={false}
         showIndicators={false}
         showThumbs={false}
@@ -64,7 +56,9 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
           return <img src={path} alt="" key={path.split("/")[-1]} />;
         })}
       </Carousel>
-      <MovieRecommendations recommendations={recommendations} />
+      {recommendations.map((r: RecommendationT) => {
+        return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>
+      })}
     </div>
   );
 };

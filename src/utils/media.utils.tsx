@@ -44,9 +44,9 @@ const backdrop_sizes : ImageURLS = {
 // ]
 
 
-export const getPosterFullUrl = (relativePath : string | null) : string | null => {
-  return relativePath ? `https://image.tmdb.org/t/p/w500${relativePath}` : null;
-}
+export const getPosterFullUrl = (relativePath: string): string => {
+  return `https://image.tmdb.org/t/p/w342${relativePath}`;
+};
 
 export const getMediaFullUrls = (relativePath : string) : ImageURLS=> {
   return (Object.entries(backdrop_sizes)).reduce((result, [key, value]) => {

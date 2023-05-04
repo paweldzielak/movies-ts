@@ -3,13 +3,13 @@ import { useState } from "react";
 import { useDisclosure } from "@chakra-ui/react";
 
 import { useGenreContext } from "../../context/genres.context";
-import { MovieContext } from "../../context/movies.context";
+import { useMovieContext } from "../../context/movies.context";
 
 import "./nav-bar.styles.scss";
 import NavFilters from "./NavBarFilters.component";
 
 const NavBar = () => {
-  const { filteredYears } = useContext(MovieContext);
+  const { filteredYears } = useMovieContext();
   const { filteredGenreIds } = useGenreContext();
 
   const [activeFilters, setActiveFilters] = useState(0);

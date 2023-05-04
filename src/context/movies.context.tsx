@@ -26,7 +26,7 @@ export type MovieContextState = {
   totalResults: number;
 };
 
-export const MovieContext = createContext({} as MovieContextState);
+const MovieContext = createContext({} as MovieContextState);
 
 export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [currentMovies, setCurrentMovies] = useState<MovieT[]>([]);
@@ -46,6 +46,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       const { page, results: movies, total_results } = await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
 
       const moviesToSet = movies.map((movie: MovieT) => {
+        console.log(movie.genre_ids?.map((id) => genreMap.get(id)));
         return {
           id: movie.id,
           title: movie.title,
@@ -66,7 +67,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const handleLoadMoreMovies = useCallback(() => {
     handleCurrentMovies(currentGenreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
-  }, []);
+  }, [currentGenreMap, currentMovies, filteredGenreIds, currentPage, filteredGenreIds, filteredYears]);
 
   const contextValue = useMemo(
     () => ({

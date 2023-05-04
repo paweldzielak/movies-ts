@@ -19,13 +19,15 @@ const Title = ({ title, genres, openDetails, releaseYear }: TitleProps) => {
         {title}
       </h2>
       <div className="genre-container">
-        {genres.map((genre) => (
-          <span key={title + genre} className="genre">{` ${genre}`}</span>
-        ))}
+        {!!genres[0] && genres.map((genre) => {
+          return <span key={title + genre} className="genre">{` ${genre}`}</span>;
+        })}
       </div>
-      {!!releaseYear && <span className="year" onClick={handleClickYearClick}>
-        {releaseYear}
-      </span>}
+      {!!releaseYear && (
+        <span className="year" onClick={handleClickYearClick}>
+          {releaseYear}
+        </span>
+      )}
     </div>
   );
 };

@@ -27,7 +27,7 @@ export type MovieT = {
   vote_count: number;
 }
 
-export type Recommendation = {
+export type RecommendationT = {
   adult: boolean;
   backdrop_path: string;
   id: number;
