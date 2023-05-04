@@ -5,7 +5,6 @@ import { Drawer, DrawerFooter, DrawerContent, DrawerOverlay, DrawerHeader, Drawe
 import "./nav-bar-filters.styles.scss";
 import { range } from "../../utils/general.utils";
 import { FilteredYearT, Genre } from "../../types/types";
-import { useGenreContext } from "../../context/genres.context";
 import { useMovieContext } from "../../context/movies.context";
 
 interface NavFiltersProps {
@@ -19,9 +18,7 @@ const getDefaultYearOptions = () => {
 };
 
 const NavFilters: React.FC<NavFiltersProps> = ({ isFilterOpen, handleOnCloseFilters }) => {
-  const { currentGenreMap, setFilteredGenreIds, filteredGenreIds } = useGenreContext();
-  const { filteredYears, setFilteredYears } = useMovieContext();
-
+  const { filteredYears, setFilteredYears, genreMap, setFilteredGenreIds, filteredGenreIds } = useMovieContext();
   const [yearOptions, setYearOptions] = React.useState<FilteredYearT[]>(getDefaultYearOptions);
 
   const handleYearChange = (selectedList: FilteredYearT[]) => {
@@ -44,8 +41,8 @@ const NavFilters: React.FC<NavFiltersProps> = ({ isFilterOpen, handleOnCloseFilt
   };
 
   const genreOptions = useMemo(() => {
-    return Array.from(currentGenreMap, ([id, name]) => ({ id, name }));
-  }, [currentGenreMap]);
+    return Array.from(genreMap, ([id, name]) => ({ id, name }));
+  }, [genreMap]);
 
   const filteredGenres = useMemo(() => {
     return genreOptions.filter((g) => filteredGenreIds.includes(g.id));

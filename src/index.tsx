@@ -4,7 +4,6 @@ import './index.css';
 import App from './App';
 import { MoviesContextProvider } from "./context/movies.context";
 import { ChakraProvider } from "@chakra-ui/react";
-import { GenreContextProvider } from "./context/genres.context";
 
 // import reportWebVitals from './reportWebVitals';
 
@@ -22,11 +21,9 @@ root.render(
 root.render(
   <React.StrictMode>
     <ChakraProvider>
-      <GenreContextProvider>
-        <MoviesContextProvider>
-          <App />
-        </MoviesContextProvider>
-      </GenreContextProvider>
+      <MoviesContextProvider>
+        <App />
+      </MoviesContextProvider>
     </ChakraProvider>
   </React.StrictMode>
 );

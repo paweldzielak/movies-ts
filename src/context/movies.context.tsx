@@ -1,13 +1,7 @@
 import React, { FC, PropsWithChildren, useMemo } from "react";
-import {
-  createContext,
-  useState,
-  useCallback,
-  useEffect,
-} from "react";
-import { useGenreContext } from "./genres.context";
+import { createContext, useState, useCallback, useEffect } from "react";
 
-import { getDiscoverMovies } from "../utils/movie.utils";
+import { getDiscoverMovies, getGenresMapFromAPI } from "../utils/movie.utils";
 import { getPosterFullUrl } from "../utils/media.utils";
 import { MovieT, FilteredYearT } from "../types/types";
 
@@ -24,6 +18,9 @@ export type MovieContextState = {
   setFilteredYears: (filteredYears: FilteredYearT[]) => void;
   filteredYears: FilteredYearT[];
   totalResults: number;
+  genreMap: Map<number, string>;
+  filteredGenreIds: number[];
+  setFilteredGenreIds: (filteredGenresIds: number[]) => void;
 };
 
 const MovieContext = createContext({} as MovieContextState);
@@ -33,20 +30,13 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
   const [filteredYears, setFilteredYears] = useState<FilteredYearT[]>([]);
-  const { currentGenreMap, filteredGenreIds } = useGenreContext();
+  const [filteredGenreIds, setFilteredGenreIds] = useState<number[]>([]);
+  const [genreMap, setGenreMap] = useState<Map<number, string>>(new Map());
 
   const handleCurrentMovies = useCallback(
-    async (
-      genreMap: Map<number, string>,
-      currentPage = 0,
-      currentMovies: MovieT[] = [],
-      filteredGenreIds: number[] = [],
-      filteredYears: FilteredYearT[] = []
-    ) => {
+    async (genres = genreMap, currentPage = 0, currentMovies: MovieT[] = [], filteredGenreIds: number[] = [], filteredYears: FilteredYearT[] = []) => {
       const { page, results: movies, total_results } = await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
-
       const moviesToSet = movies.map((movie: MovieT) => {
-        console.log(movie.genre_ids?.map((id) => genreMap.get(id)));
         return {
           id: movie.id,
           title: movie.title,
@@ -54,7 +44,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
           adult: movie.adult,
           poster_path: getPosterFullUrl(movie.poster_path),
           overview: movie.overview,
-          genres: movie.genre_ids?.map((id) => genreMap.get(id)),
+          genres: movie.genre_ids?.map((id) => genres.get(id)),
           release_date: movie.release_date,
         };
       });
@@ -66,8 +56,8 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   const handleLoadMoreMovies = useCallback(() => {
-    handleCurrentMovies(currentGenreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
-  }, [currentGenreMap, currentMovies, filteredGenreIds, currentPage, filteredGenreIds, filteredYears]);
+    handleCurrentMovies(genreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
+  }, [genreMap, currentMovies, filteredGenreIds, currentPage, filteredGenreIds, filteredYears]);
 
   const contextValue = useMemo(
     () => ({
@@ -77,21 +67,25 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setFilteredYears,
       filteredYears,
       totalResults,
+      genreMap,
+      filteredGenreIds,
+      setFilteredGenreIds,
     }),
     [currentMovies, setCurrentMovies, handleLoadMoreMovies, setFilteredYears, filteredYears, totalResults]
   );
 
   useEffect(() => {
-    if (currentGenreMap) handleCurrentMovies(currentGenreMap, 0, [], filteredGenreIds, filteredYears);
-  }, [handleCurrentMovies, currentGenreMap, filteredGenreIds, filteredYears]);
+    getGenresMapFromAPI().then((genreMap) => {
+      handleCurrentMovies(genreMap, 0, [], filteredGenreIds, filteredYears);
+      setGenreMap(genreMap);
+    });
+  }, [filteredGenreIds, filteredYears]);
 
   return <MovieContext.Provider value={contextValue}>{children}</MovieContext.Provider>;
 };
 
 export const useMovieContext = () => {
   const context = React.useContext(MovieContext);
-
   if (!context) throw new Error("useMovieContext must be used inside MovieContext.Provider");
-
   return context;
 };
