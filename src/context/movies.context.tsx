@@ -52,12 +52,12 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setTotalResults(total_results);
       setCurrentMovies([...currentMovies, ...moviesToSet]);
     },
-    []
+    [genreMap]
   );
 
   const handleLoadMoreMovies = useCallback(() => {
     handleCurrentMovies(genreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
-  }, [genreMap, currentMovies, filteredGenreIds, currentPage, filteredGenreIds, filteredYears]);
+  }, [genreMap, currentMovies, filteredGenreIds, currentPage, filteredYears, handleCurrentMovies]);
 
   const contextValue = useMemo(
     () => ({
@@ -71,7 +71,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       filteredGenreIds,
       setFilteredGenreIds,
     }),
-    [currentMovies, setCurrentMovies, handleLoadMoreMovies, setFilteredYears, filteredYears, totalResults]
+    [currentMovies, setCurrentMovies, handleLoadMoreMovies, setFilteredYears, filteredYears, totalResults, genreMap, filteredGenreIds, setFilteredGenreIds]
   );
 
   useEffect(() => {
@@ -79,7 +79,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       handleCurrentMovies(genreMap, 0, [], filteredGenreIds, filteredYears);
       setGenreMap(genreMap);
     });
-  }, [filteredGenreIds, filteredYears]);
+  }, [filteredGenreIds, filteredYears, handleCurrentMovies]);
 
   return <MovieContext.Provider value={contextValue}>{children}</MovieContext.Provider>;
 };
