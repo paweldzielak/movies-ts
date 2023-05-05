@@ -43,14 +43,14 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }
 
   const getParsedMovies = (movies: MovieT[], genres: Map<number, string> = genreMap) => {
-    return movies.map((movie) => {
-      const localGenres = [] as string[];
+    const getGenreList = (movie: MovieT) => {
       if (movie?.genres?.length && typeof movie.genres[0] === "object") {
-        movie?.genres.forEach((g) => {
-          const { name } = g as Genre;
-          localGenres.push(name);
-        })
-      }
+        return movie.genres.map((g) => (g as Genre).name);  
+      } 
+      return movie.genre_ids?.map((id) => genres.get(id))
+    } 
+
+    return movies.map((movie) => {
       const result = {
         id: movie.id,
         title: movie.title,
@@ -58,7 +58,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
         adult: movie.adult,
         poster_path: getPosterFullUrl(movie.poster_path),
         overview: movie.overview,
-        genres: movie.genre_ids?.map((id) => genres.get(id)) || localGenres,
+        genres: getGenreList(movie),
         release_date: movie.release_date,
       };
       return result as MovieT;
