@@ -8,7 +8,7 @@ import "./nav-bar.styles.scss";
 import NavFilters from "./NavBarFilters.component";
 
 const NavBar = () => {
-  const { filteredYears, filteredGenreIds, handleSwitchFavoriteList } = useMovieContext();
+  const { filteredYears, filteredGenreIds, handleSwitchFavoriteList, isDisplayFavorites } = useMovieContext();
 
   const [activeFilters, setActiveFilters] = useState(0);
 
@@ -30,15 +30,15 @@ const NavBar = () => {
   return (
     <div className="navbar-container-wrapper">
       <div className="navbar-container">
-        <button className="navbar-favorite-button" onClick={handleSwitchFavoriteList}>
-          show favorites
+        <button className="navbar-button navbar-button__favorite" onClick={handleSwitchFavoriteList}>
+        {isDisplayFavorites ? "Show all results" : "Show favorites only"}
         </button>
-        <button className="navbar-filters-button" onClick={handleFilters}>
+        <button className="navbar-button navbar-button__filter" onClick={handleFilters}>
           <span>Open filters</span>
           {!!activeFilters && <span className="navbar-filter-button-counter">{activeFilters}</span>}
         </button>
-        <NavFilters handleOnCloseFilters={handleOnCloseFilters} isFilterOpen={isFilterOpen} />
       </div>
+      <NavFilters handleOnCloseFilters={handleOnCloseFilters} isFilterOpen={isFilterOpen} />
     </div>
   );
 };

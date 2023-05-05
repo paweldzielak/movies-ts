@@ -23,6 +23,7 @@ export type MovieContextState = {
   filteredGenreIds: number[];
   setFilteredGenreIds: (filteredGenresIds: number[]) => void;
   handleSwitchFavoriteList: () => void;
+  isDisplayFavorites: boolean;
 };
 
 const MovieContext = createContext({} as MovieContextState);
@@ -85,6 +86,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       filteredGenreIds,
       setFilteredGenreIds,
       handleSwitchFavoriteList,
+      isDisplayFavorites,
     }),
     [currentMovies, setCurrentMovies, handleLoadMoreMovies, setFilteredYears, filteredYears, totalResults, 
       genreMap, filteredGenreIds, setFilteredGenreIds, currentFavoriteMovies, isDisplayFavorites]
