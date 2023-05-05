@@ -19,7 +19,7 @@ export type MovieT = {
   poster_path: string;
   media_type: string;
   genre_ids?: (number)[] | null;
-  genres: string[];
+  genres: string[] | Genre[];
   popularity: number;
   release_date: string;
   video: boolean;

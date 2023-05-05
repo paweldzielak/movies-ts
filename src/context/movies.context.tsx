@@ -1,9 +1,10 @@
 import React, { FC, PropsWithChildren, useMemo } from "react";
 import { createContext, useState, useCallback, useEffect } from "react";
 
-import { getDiscoverMovies, getGenresMapFromAPI } from "../utils/movie.utils";
+import { getAllMoviesByIds, getDiscoverMovies, getGenresMapFromAPI } from "../utils/movie.utils";
 import { getPosterFullUrl } from "../utils/media.utils";
-import { MovieT, FilteredYearT } from "../types/types";
+import { MovieT, FilteredYearT, Genre } from "../types/types";
+import { useUserDataContext } from "./user-data.context";
 
 export type MovieContextState = {
   currentMovies: MovieT[];
@@ -21,33 +22,53 @@ export type MovieContextState = {
   genreMap: Map<number, string>;
   filteredGenreIds: number[];
   setFilteredGenreIds: (filteredGenresIds: number[]) => void;
+  handleSwitchFavoriteList: () => void;
 };
 
 const MovieContext = createContext({} as MovieContextState);
 
 export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [currentMovies, setCurrentMovies] = useState<MovieT[]>([]);
+  const [currentFavoriteMovies, setCurrentFavoriteMovies] = useState<MovieT[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [totalResults, setTotalResults] = useState(0);
   const [filteredYears, setFilteredYears] = useState<FilteredYearT[]>([]);
   const [filteredGenreIds, setFilteredGenreIds] = useState<number[]>([]);
   const [genreMap, setGenreMap] = useState<Map<number, string>>(new Map());
+  const [isDisplayFavorites, setDisplayFavorites] = useState<boolean>(false);
+  const {favoritesMovies} = useUserDataContext();
+
+  const handleSwitchFavoriteList = () => {
+    setDisplayFavorites(prevState => !prevState);
+  }
+
+  const getParsedMovies = (movies: MovieT[], genres: Map<number, string> = genreMap) => {
+    return movies.map((movie) => {
+      const localGenres = [] as string[];
+      if (movie?.genres?.length && typeof movie.genres[0] === "object") {
+        movie?.genres.forEach((g) => {
+          const { name } = g as Genre;
+          localGenres.push(name);
+        })
+      }
+      const result = {
+        id: movie.id,
+        title: movie.title,
+        vote_average: Math.round(movie.vote_average * 10) / 10,
+        adult: movie.adult,
+        poster_path: getPosterFullUrl(movie.poster_path),
+        overview: movie.overview,
+        genres: movie.genre_ids?.map((id) => genres.get(id)) || localGenres,
+        release_date: movie.release_date,
+      };
+      return result as MovieT;
+    });
+  }
 
   const handleCurrentMovies = useCallback(
     async (genres = genreMap, currentPage = 0, currentMovies: MovieT[] = [], filteredGenreIds: number[] = [], filteredYears: FilteredYearT[] = []) => {
       const { page, results: movies, total_results } = await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
-      const moviesToSet = movies.map((movie: MovieT) => {
-        return {
-          id: movie.id,
-          title: movie.title,
-          vote_average: movie.vote_average,
-          adult: movie.adult,
-          poster_path: getPosterFullUrl(movie.poster_path),
-          overview: movie.overview,
-          genres: movie.genre_ids?.map((id) => genres.get(id)),
-          release_date: movie.release_date,
-        };
-      });
+      const moviesToSet = getParsedMovies(movies, genres);
       setCurrentPage(page);
       setTotalResults(total_results);
       setCurrentMovies([...currentMovies, ...moviesToSet]);
@@ -61,7 +82,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const contextValue = useMemo(
     () => ({
-      currentMovies,
+      currentMovies: isDisplayFavorites ? currentFavoriteMovies : currentMovies,
       setCurrentMovies,
       handleLoadMoreMovies,
       setFilteredYears,
@@ -70,8 +91,9 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       genreMap,
       filteredGenreIds,
       setFilteredGenreIds,
+      handleSwitchFavoriteList,
     }),
-    [currentMovies, setCurrentMovies, handleLoadMoreMovies, setFilteredYears, filteredYears, totalResults, genreMap, filteredGenreIds, setFilteredGenreIds]
+    [currentMovies, setCurrentMovies, handleLoadMoreMovies, setFilteredYears, filteredYears, totalResults, genreMap, filteredGenreIds, setFilteredGenreIds, handleSwitchFavoriteList]
   );
 
   useEffect(() => {
@@ -79,7 +101,13 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       handleCurrentMovies(genreMap, 0, [], filteredGenreIds, filteredYears);
       setGenreMap(genreMap);
     });
-  }, [filteredGenreIds, filteredYears, handleCurrentMovies]);
+  }, [filteredGenreIds, filteredYears]);
+
+  useEffect(() => {
+    getAllMoviesByIds(favoritesMovies).then((fMovies : MovieT[]) => {
+      setCurrentFavoriteMovies(getParsedMovies(fMovies) ); 
+    })
+  }, [favoritesMovies])
 
   return <MovieContext.Provider value={contextValue}>{children}</MovieContext.Provider>;
 };

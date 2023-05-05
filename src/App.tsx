@@ -12,7 +12,6 @@ import {
   ModalBody,
 } from "@chakra-ui/react";
 
-import { UserDataProvider } from "./context/user-data.context";
 import { useMovieContext } from "./context/movies.context";
 
 import NavBar from "./components/nav-bar/NavBar.component";
@@ -30,14 +29,12 @@ const App = () => {
   return (
     <>
       <NavBar />
-      <UserDataProvider>
         <div className='movies-card-container' style={{ marginBottom: '30px' }}>
           {currentMovies.map((movie) => {
             return <MovieCard key={movie.id} movie={movie}
               openModal={onOpen} setModalChildren={setModalChildren} />
           })}
         </div>
-      </UserDataProvider>
       {/* {isMoreLoadAvailable ? <Button borderRadius='5px' bgColor='#3c80fc' border='none'
         variant='outline' color='whitesmoke' mt='8px' mb="8px" transform='translate(-50%, -50%)'
         left='50%' fontSize='2rem' padding='2rem 3rem'

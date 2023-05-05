@@ -1,5 +1,5 @@
-import React, { useContext, useState } from "react";
-import { UserDataContext } from "../../context/user-data.context";
+import React, { useState } from "react";
+import { useUserDataContext } from "../../context/user-data.context";
 import Title from "../title/Title.component";
 import "./movieCard.styles.scss";
 import { getMovieMoreDetails } from "../../utils/movie.utils";
@@ -13,7 +13,7 @@ type MovieCardProps = {
 };
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildren }) => {
-  const { favoritesMovies, handleBookmarked } = useContext(UserDataContext);
+  const { favoritesMovies, handleBookmarked } = useUserDataContext();
   const [details, setDetails] = useState<MovieDetailsT>();
 
   const getDetails = async () => {
@@ -53,7 +53,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildre
     <div className="movie-card">
       <img className="poster" src={movie.poster_path} alt={movie.title} />
       <div className="title-description-container">
-        <Title title={movie.title} genres={movie.genres} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
+        <Title title={movie.title} genres={movie.genres as string[]} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
         <span className="description">{movie.overview}</span>
       </div>
       <div className="vote-favorite-container">

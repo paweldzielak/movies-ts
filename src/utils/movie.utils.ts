@@ -75,3 +75,8 @@ export const getMovieRecommendations = async (apiInternalMovieId: number, sortBy
   const sorted = results.sort((first, second) => second[sortBy] - first[sortBy]);
   return sorted
 }
+
+export const getAllMoviesByIds = async (ids: number[]) : Promise<MovieT[]> => {
+  const movieList = await Promise.all(ids.map(id => getMovieMoreDetails(id, false, false)));
+  return movieList
+}

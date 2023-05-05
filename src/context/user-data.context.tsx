@@ -13,7 +13,7 @@ export const contextDefaultValues: MovieContextState = {
   handleBookmarked: () => {},
 };
 
-export const UserDataContext = createContext<MovieContextState>(contextDefaultValues);
+const UserDataContext = createContext<MovieContextState>(contextDefaultValues);
 
 export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Element[] }) => {
   const [favoritesMovies, setFavoritesMovies] = useLocalStorage("favoritesMovies", contextDefaultValues.favoritesMovies);
@@ -38,4 +38,10 @@ export const UserDataProvider = ({ children }: { children: JSX.Element | JSX.Ele
       {children}
     </UserDataContext.Provider>
   );
+};
+
+export const useUserDataContext = () => {
+  const context = React.useContext(UserDataContext);
+  if (!context) throw new Error("useUserDataContext must be used inside UserDataContext.Provider");
+  return context;
 };
