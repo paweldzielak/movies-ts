@@ -62,7 +62,6 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const handleCurrentMovies = useCallback(
     async (genres = genreMap, currentPage = 0, currentMovies: MovieT[] = [], filteredGenreIds: number[] = [], filteredYears: FilteredYearT[] = []) => {
-      console.log('*handleCurrentMovies*');
       const { page, results: movies, total_results } = await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
       const moviesToSet = getParsedMovies(movies, genres);
       setCurrentPage(page);
@@ -94,16 +93,13 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   useEffect(() => {
-    console.log('*movieContext useEffect 1*');
-    
     getGenresMapFromAPI().then((genreMap) => {
       handleCurrentMovies(genreMap, 0, [], filteredGenreIds, filteredYears);
       setGenreMap(genreMap);
     });
-  }, [filteredGenreIds, filteredYears, handleCurrentMovies]);
+  }, [filteredGenreIds, filteredYears]);
 
   useEffect(() => {
-    console.log('*movieContext useEffect 2*');
     getAllMoviesByIds(favoritesMovies).then((fMovies : MovieT[]) => {
       setCurrentFavoriteMovies(getParsedMovies(fMovies) ); 
     })
