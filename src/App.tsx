@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 import {
   Button,
@@ -29,12 +29,11 @@ const App = () => {
   return (
     <>
       <NavBar />
-        <div className='movies-card-container' style={{ marginBottom: '30px' }}>
-          {currentMovies.map((movie) => {
-            return <MovieCard key={movie.id} movie={movie}
-              openModal={onOpen} setModalChildren={setModalChildren} />
-          })}
-        </div>
+      <div className="movies-card-container" style={{ marginBottom: "30px" }}>
+        {currentMovies.map((movie) => {
+          return <MovieCard key={movie.id} movie={movie} openModal={onOpen} setModalChildren={setModalChildren} />;
+        })}
+      </div>
       {/* {isMoreLoadAvailable ? <Button borderRadius='5px' bgColor='#3c80fc' border='none'
         variant='outline' color='whitesmoke' mt='8px' mb="8px" transform='translate(-50%, -50%)'
         left='50%' fontSize='2rem' padding='2rem 3rem'
@@ -43,20 +42,22 @@ const App = () => {
           border: '1px solid #2c64fc',
           color: "white",
         }} onClick={() => handleLoadMoreMovies()}>Load more</Button> : null} */}
-     <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent minW={'80%'} bg="#1a202c">
-          <ModalHeader bg="#1a202c" borderTopRadius={'2rem'}>
-            <ModalCloseButton bg="lightgray" w="24px" h="24px" fontSize='10px' _hover={{
-              background: "white",
-            }} />
+        <ModalContent minW={"80%"} bg="#1a202c">
+          <ModalHeader bg="#1a202c" borderTopRadius={"2rem"}>
+            <ModalCloseButton
+              bg="lightgray"
+              w="24px"
+              h="24px"
+              fontSize="10px"
+              _hover={{
+                background: "white",
+              }}
+            />
           </ModalHeader>
-          <ModalBody bg="#1a202c">
-            {modalChildren}
-          </ModalBody>
-          <ModalFooter>
-            {'modal footer txt'}
-          </ModalFooter>
+          <ModalBody bg="#1a202c">{modalChildren}</ModalBody>
+          <ModalFooter>{"modal footer txt"}</ModalFooter>
         </ModalContent>
       </Modal>
     </>

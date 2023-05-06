@@ -3,6 +3,7 @@ import { range } from "./general.utils"
 import { FilteredYearT, Genre, MovieT } from "../types/types"
 
 const getMoviesByUrl = async (url: string) => {
+  // console.log('*getMoviesByUrl*');
   try {
     const { data } = await axios.get(url)
     return data
@@ -21,6 +22,7 @@ export const getGenresMapFromAPI = async () => {
   const url = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + process.env.REACT_APP_MOVIE_DB_API_KEY
   const genreMap = new Map();
   try {
+    // console.log('*getGenresMapFromAPI*');
     const result = await axios.get(url);
     result.data.genres.forEach((genre: Genre) => {
       genreMap.set(genre.id, genre.name)
