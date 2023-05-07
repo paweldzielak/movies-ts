@@ -39,10 +39,9 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [isDisplayFavorites, setDisplayFavorites] = useState<boolean>(false);
   const {favoritesMovies} = useUserDataContext();
 
-  const handleSwitchFavoriteList = () => {
+  const handleSwitchFavoriteList = useCallback(() => {
     setDisplayFavorites((prevState) => !prevState);
-    console.log("currentMovies loaded favorite length ->", currentFavoriteMovies.length, "favoritesMovies ->", favoritesMovies);
-  };
+  }, []);
 
   const getParsedMovies = useCallback(
     (movies: MovieT[], genres: Map<number, string> = genreMap) => {
