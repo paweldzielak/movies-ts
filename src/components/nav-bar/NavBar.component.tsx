@@ -1,11 +1,11 @@
 import React from "react";
 import { useState } from "react";
-import { useDisclosure } from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement, useDisclosure } from "@chakra-ui/react";
 
 import { useMovieContext } from "../../context/movies.context";
+import NavFilters from "./NavBarFilters.component";
 
 import "./nav-bar.styles.scss";
-import NavFilters from "./NavBarFilters.component";
 
 const NavBar = () => {
   const { filteredYears, filteredGenreIds, handleSwitchFavoriteList, isDisplayFavorites } = useMovieContext();
@@ -31,8 +31,26 @@ const NavBar = () => {
     <div className="navbar-container-wrapper">
       <div className="navbar-container">
         <button className="navbar-button navbar-button__favorite" onClick={handleSwitchFavoriteList}>
-        {isDisplayFavorites ? "Show all results" : "Show favorites only"}
+          {isDisplayFavorites ? "Show all results" : "Show favorites only"}
         </button>
+        <InputGroup size="lg" w="">
+          <InputLeftElement
+            h="50px"
+            w="50px"
+            m={"0 0.6rem"}
+            pointerEvents="none"
+            children={<img src="search-icon.svg" className="navbar-search-icon" />}
+          />
+          <Input
+            placeholder="Enter title"
+            height="50px"
+            color="purple.50"
+            fontSize="1.6rem"
+            textAlign="center"
+            _placeholder={{ color: "gray.300", m: "auto" }}
+            _focus={{ _placeholder: { color: "transparent" } }}
+          />
+        </InputGroup>
         <button className="navbar-button navbar-button__filter" onClick={handleFilters}>
           <span>Open filters</span>
           {!!activeFilters && <span className="navbar-filter-button-counter">{activeFilters}</span>}
