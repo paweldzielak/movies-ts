@@ -1,7 +1,7 @@
 import React, { FC, PropsWithChildren, useMemo } from "react";
 import { createContext, useState, useCallback, useEffect } from "react";
 
-import { getAllMoviesByIds, getDiscoverMovies, getGenresMapFromAPI } from "../utils/movie.utils";
+import { getAllMoviesByIds, getDiscoverMovies, getGenresMapFromAPI, getSearchMovies } from "../utils/movie.utils";
 import { getPosterFullUrl } from "../utils/media.utils";
 import { MovieT, FilteredYearT, Genre } from "../types/types";
 import { useUserDataContext } from "./user-data.context";
@@ -24,6 +24,7 @@ export type MovieContextState = {
   setFilteredGenreIds: (filteredGenresIds: number[]) => void;
   handleSwitchFavoriteList: () => void;
   isDisplayFavorites: boolean;
+  handleSearch: (searchQ: string) => void;
 };
 
 const MovieContext = createContext({} as MovieContextState);
@@ -37,10 +38,16 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [filteredGenreIds, setFilteredGenreIds] = useState<number[]>([]);
   const [genreMap, setGenreMap] = useState<Map<number, string>>(new Map());
   const [isDisplayFavorites, setDisplayFavorites] = useState<boolean>(false);
-  const {favoritesMovies} = useUserDataContext();
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const { favoritesMovies } = useUserDataContext();
 
   const handleSwitchFavoriteList = useCallback(() => {
     setDisplayFavorites((prevState) => !prevState);
+  }, []);
+
+  const handleSearch = useCallback((searchQ: string) => {
+    setSearchQuery(searchQ);
+    setCurrentPage(0);
   }, []);
 
   const getParsedMovies = useCallback(
@@ -64,24 +71,31 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
 
   const handleCurrentMovies = useCallback(
     async (
+      searchQ = searchQuery,
       genres = genreMap,
       currentPage = 0,
       currentMovies: MovieT[] = [],
       filteredGenreIds: number[] = [],
       filteredYears: FilteredYearT[] = []
     ) => {
-      const { page, results: movies, total_results } = await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
+      const {
+        page,
+        results: movies,
+        total_results,
+      } = searchQ
+        ? await getSearchMovies(searchQ, currentPage + 1, filteredGenreIds, filteredYears)
+        : await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
       const moviesToSet = getParsedMovies(movies, genres);
       setCurrentPage(page);
       setTotalResults(total_results);
       setCurrentMovies([...currentMovies, ...moviesToSet]);
     },
-    [genreMap, getParsedMovies]
+    [genreMap, getParsedMovies, searchQuery]
   );
 
   const handleLoadMoreMovies = useCallback(() => {
-    handleCurrentMovies(genreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
-  }, [genreMap, currentMovies, filteredGenreIds, currentPage, filteredYears, handleCurrentMovies]);
+    handleCurrentMovies(searchQuery, genreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
+  }, [genreMap, currentMovies, filteredGenreIds, currentPage, filteredYears, handleCurrentMovies, searchQuery]);
 
   const contextValue = useMemo(
     () => ({
@@ -96,6 +110,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       setFilteredGenreIds,
       handleSwitchFavoriteList,
       isDisplayFavorites,
+      handleSearch,
     }),
     [
       currentMovies,
@@ -110,22 +125,27 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       currentFavoriteMovies,
       isDisplayFavorites,
       handleSwitchFavoriteList,
+      handleSearch,
     ]
   );
 
   useEffect(() => {
     if (genreMap.size) return;
     getGenresMapFromAPI().then((genreMap) => {
-      handleCurrentMovies(genreMap, 0, [], filteredGenreIds, filteredYears);
+      handleCurrentMovies(searchQuery, genreMap, 0, [], filteredGenreIds, filteredYears);
       setGenreMap(genreMap);
     });
-  }, [filteredGenreIds, filteredYears, handleCurrentMovies, genreMap.size]);
+  }, [filteredGenreIds, filteredYears, handleCurrentMovies, genreMap.size, searchQuery]);
 
   useEffect(() => {
     getAllMoviesByIds(favoritesMovies).then((fMovies: MovieT[]) => {
       setCurrentFavoriteMovies(getParsedMovies(fMovies));
     });
   }, [favoritesMovies, handleCurrentMovies, getParsedMovies]);
+
+  useEffect(() => {
+    handleCurrentMovies(searchQuery, genreMap, 0, [], filteredGenreIds, filteredYears);
+  }, [searchQuery, filteredGenreIds, filteredYears, handleCurrentMovies, genreMap]);
 
   return <MovieContext.Provider value={contextValue}>{children}</MovieContext.Provider>;
 };

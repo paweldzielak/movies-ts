@@ -8,7 +8,7 @@ import NavFilters from "./NavBarFilters.component";
 import "./nav-bar.styles.scss";
 
 const NavBar = () => {
-  const { filteredYears, filteredGenreIds, handleSwitchFavoriteList, isDisplayFavorites } = useMovieContext();
+  const { filteredYears, filteredGenreIds, handleSwitchFavoriteList, isDisplayFavorites, handleSearch } = useMovieContext();
 
   const [activeFilters, setActiveFilters] = useState(0);
 
@@ -39,7 +39,7 @@ const NavBar = () => {
             w="50px"
             m={"0 0.6rem"}
             pointerEvents="none"
-            children={<img src="search-icon.svg" className="navbar-search-icon" />}
+            children={<img src="search-icon.svg" className="navbar-search-icon" alt="magnifier-icon" />}
           />
           <Input
             placeholder="Enter title"
@@ -49,6 +49,7 @@ const NavBar = () => {
             textAlign="center"
             _placeholder={{ color: "gray.300", m: "auto" }}
             _focus={{ _placeholder: { color: "transparent" } }}
+            onChange={(e) => handleSearch(e.target.value)}
           />
         </InputGroup>
         <button className="navbar-button navbar-button__filter" onClick={handleFilters}>
