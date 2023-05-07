@@ -40,34 +40,44 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const {favoritesMovies} = useUserDataContext();
 
   const handleSwitchFavoriteList = () => {
-    setDisplayFavorites(prevState => !prevState);
-  }
+    setDisplayFavorites((prevState) => !prevState);
+    console.log("currentMovies loaded favorite length ->", currentFavoriteMovies.length, "favoritesMovies ->", favoritesMovies);
+  };
 
-  const getParsedMovies = useCallback((movies: MovieT[], genres: Map<number, string> = genreMap) => {
-    return movies.map((movie) => {
-      const result = {
-        id: movie.id,
-        title: movie.title,
-        vote_average: Math.round(movie.vote_average * 10) / 10,
-        adult: movie.adult,
-        poster_path: getPosterFullUrl(movie.poster_path),
-        overview: movie.overview,
-        genres: movie.genre_ids?.map((id) => genres.get(id)) || movie.genres.map((g) => (g as Genre).name),
-        release_date: movie.release_date,
-      };
-      return result as MovieT;
-    })
-  } , [genreMap]
-)
+  const getParsedMovies = useCallback(
+    (movies: MovieT[], genres: Map<number, string> = genreMap) => {
+      return movies.map((movie) => {
+        const result = {
+          id: movie.id,
+          title: movie.title,
+          vote_average: Math.round(movie.vote_average * 10) / 10,
+          adult: movie.adult,
+          poster_path: getPosterFullUrl(movie.poster_path),
+          overview: movie.overview,
+          genres: movie.genre_ids?.map((id) => genres.get(id)) || movie.genres.map((g) => (g as Genre).name),
+          release_date: movie.release_date,
+        };
+        return result as MovieT;
+      });
+    },
+    [genreMap]
+  );
 
   const handleCurrentMovies = useCallback(
-    async (genres = genreMap, currentPage = 0, currentMovies: MovieT[] = [], filteredGenreIds: number[] = [], filteredYears: FilteredYearT[] = []) => {
+    async (
+      genres = genreMap,
+      currentPage = 0,
+      currentMovies: MovieT[] = [],
+      filteredGenreIds: number[] = [],
+      filteredYears: FilteredYearT[] = []
+    ) => {
       const { page, results: movies, total_results } = await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
       const moviesToSet = getParsedMovies(movies, genres);
       setCurrentPage(page);
       setTotalResults(total_results);
       setCurrentMovies([...currentMovies, ...moviesToSet]);
-    }, [genreMap, getParsedMovies]
+    },
+    [genreMap, getParsedMovies]
   );
 
   const handleLoadMoreMovies = useCallback(() => {
@@ -88,22 +98,35 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       handleSwitchFavoriteList,
       isDisplayFavorites,
     }),
-    [currentMovies, setCurrentMovies, handleLoadMoreMovies, setFilteredYears, filteredYears, totalResults, 
-      genreMap, filteredGenreIds, setFilteredGenreIds, currentFavoriteMovies, isDisplayFavorites]
+    [
+      currentMovies,
+      setCurrentMovies,
+      handleLoadMoreMovies,
+      setFilteredYears,
+      filteredYears,
+      totalResults,
+      genreMap,
+      filteredGenreIds,
+      setFilteredGenreIds,
+      currentFavoriteMovies,
+      isDisplayFavorites,
+      handleSwitchFavoriteList,
+    ]
   );
 
   useEffect(() => {
+    if (genreMap.size) return;
     getGenresMapFromAPI().then((genreMap) => {
       handleCurrentMovies(genreMap, 0, [], filteredGenreIds, filteredYears);
       setGenreMap(genreMap);
     });
-  }, [filteredGenreIds, filteredYears]);
+  }, [filteredGenreIds, filteredYears, handleCurrentMovies, genreMap.size]);
 
   useEffect(() => {
-    getAllMoviesByIds(favoritesMovies).then((fMovies : MovieT[]) => {
-      setCurrentFavoriteMovies(getParsedMovies(fMovies) ); 
-    })
-  }, [favoritesMovies, handleCurrentMovies, getParsedMovies])
+    getAllMoviesByIds(favoritesMovies).then((fMovies: MovieT[]) => {
+      setCurrentFavoriteMovies(getParsedMovies(fMovies));
+    });
+  }, [favoritesMovies, handleCurrentMovies, getParsedMovies]);
 
   return <MovieContext.Provider value={contextValue}>{children}</MovieContext.Provider>;
 };
