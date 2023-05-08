@@ -19,6 +19,7 @@ export type MovieContextState = {
   handleSwitchFavoriteList: () => void;
   isDisplayFavorites: boolean;
   handleSearch: (searchQ: string) => void;
+  searchQuery: string;
 };
 
 const MovieContext = createContext({} as MovieContextState);
@@ -106,6 +107,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       handleSwitchFavoriteList,
       isDisplayFavorites,
       handleSearch,
+      searchQuery
     }),
     [
       currentMovies,
@@ -121,6 +123,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       isDisplayFavorites,
       handleSwitchFavoriteList,
       handleSearch,
+      searchQuery
     ]
   );
 

@@ -8,10 +8,8 @@ import NavFilters from "./NavBarFilters.component";
 import "./nav-bar.styles.scss";
 
 const NavBar = () => {
-  const { filteredYears, filteredGenreIds, handleSwitchFavoriteList, isDisplayFavorites, handleSearch } = useMovieContext();
-
+  const { filteredYears, filteredGenreIds, handleSwitchFavoriteList, isDisplayFavorites, handleSearch, searchQuery } = useMovieContext();
   const [activeFilters, setActiveFilters] = useState(0);
-
   const { isOpen: isFilterOpen, onOpen: onFilterOpen, onClose: onFilterClose } = useDisclosure();
 
   const handleOnCloseFilters = () => {
@@ -25,10 +23,6 @@ const NavBar = () => {
     if (filteredGenreIds.length) activeFilters = activeFilters + 1;
     setActiveFilters(activeFilters);
     if (!isFilterOpen) onFilterOpen();
-  };
-
-  const handleClearSearch = () => {
-    console.log("*handleClearSearch*");
   };
 
   return (
@@ -53,10 +47,11 @@ const NavBar = () => {
             textAlign="center"
             _placeholder={{ color: "gray.300", m: "auto" }}
             _focus={{ _placeholder: { color: "transparent" } }}
+            value={searchQuery}
             onChange={(e) => handleSearch(e.target.value)}
           />
           <InputRightElement h="50px" w="50px" m={"0 0.6rem"}>
-            <Button size="md" onClick={handleClearSearch}>
+            <Button size="md" onClick={() => handleSearch('')}>
               {/* {show ? 'Hide' : 'Show'} */}X
             </Button>
           </InputRightElement>
