@@ -9,13 +9,7 @@ import { useUserDataContext } from "./user-data.context";
 export type MovieContextState = {
   currentMovies: MovieT[];
   setCurrentMovies: (currentMovies: MovieT[]) => void;
-  handleLoadMoreMovies: (
-    currentGenreMap: Map<number, string>,
-    currentPage: number,
-    currentMovies: MovieT[],
-    filteredGenreIds: number,
-    filteredYears: FilteredYearT[]
-  ) => void;
+  handleLoadMoreMovies: () => void;
   setFilteredYears: (filteredYears: FilteredYearT[]) => void;
   filteredYears: FilteredYearT[];
   totalResults: number;
@@ -93,7 +87,8 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
     [genreMap, getParsedMovies, searchQuery]
   );
 
-  const handleLoadMoreMovies = useCallback(() => {
+  const handleLoadMoreMovies = useCallback(async () => {
+    console.log("handleLoadMoreMovies");
     handleCurrentMovies(searchQuery, genreMap, currentPage, currentMovies, filteredGenreIds, filteredYears);
   }, [genreMap, currentMovies, filteredGenreIds, currentPage, filteredYears, handleCurrentMovies, searchQuery]);
 
