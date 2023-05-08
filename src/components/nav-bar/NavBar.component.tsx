@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { Input, InputGroup, InputLeftElement, useDisclosure } from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement, useDisclosure, Button, InputRightElement } from "@chakra-ui/react";
 
 import { useMovieContext } from "../../context/movies.context";
 import NavFilters from "./NavBarFilters.component";
@@ -27,6 +27,10 @@ const NavBar = () => {
     if (!isFilterOpen) onFilterOpen();
   };
 
+  const handleClearSearch = () => {
+    console.log("*handleClearSearch*");
+  };
+
   return (
     <div className="navbar-container-wrapper">
       <div className="navbar-container">
@@ -51,6 +55,11 @@ const NavBar = () => {
             _focus={{ _placeholder: { color: "transparent" } }}
             onChange={(e) => handleSearch(e.target.value)}
           />
+          <InputRightElement h="50px" w="50px" m={"0 0.6rem"}>
+            <Button size="md" onClick={handleClearSearch}>
+              {/* {show ? 'Hide' : 'Show'} */}X
+            </Button>
+          </InputRightElement>
         </InputGroup>
         <button className="navbar-button navbar-button__filter" onClick={handleFilters}>
           <span>Open filters</span>
