@@ -51,7 +51,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildre
 
   return (
     <div className="movie-card">
-      <img className="poster" src={movie.poster_path} alt={movie.title} />
+      <img className="poster" src={movie.poster_path || "default-image.jpg"} alt={movie.title} />
       <div className="title-description-container">
         <Title title={movie.title} genres={movie.genres as string[]} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
         <span className="description">{movie.overview}</span>
