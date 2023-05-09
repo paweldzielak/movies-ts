@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Input, InputGroup, InputLeftElement, useDisclosure, Button, InputRightElement } from "@chakra-ui/react";
+import { Input, InputGroup, InputLeftElement, useDisclosure, Button, InputRightElement, Icon } from "@chakra-ui/react";
+import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
 
 import { useMovieContext } from "../../context/movies.context";
 import NavFilters from "./NavBarFilters.component";
@@ -37,7 +38,8 @@ const NavBar = () => {
             w="50px"
             m={"0 0.6rem"}
             pointerEvents="none"
-            children={<img src="search-icon.svg" className="navbar-search-icon" alt="magnifier-icon" />}
+            // children={<img src="search-icon.svg" className="navbar-search-icon" alt="magnifier-icon" />}
+            children={<Icon as={Search2Icon} fontSize="2rem" color={"whiteAlpha.900"} />}
           />
           <Input
             placeholder="Enter title"
@@ -51,8 +53,8 @@ const NavBar = () => {
             onChange={(e) => handleSearch(e.target.value)}
           />
           <InputRightElement h="50px" w="50px" m={"0 0.6rem"}>
-            <Button size="md" onClick={() => handleSearch('')}>
-              {/* {show ? 'Hide' : 'Show'} */}X
+            <Button size="md" w="28px" h="28px" onClick={() => handleSearch("")}>
+              <Icon as={CloseIcon} fontSize="1.4rem" />
             </Button>
           </InputRightElement>
         </InputGroup>
