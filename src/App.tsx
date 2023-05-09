@@ -20,7 +20,7 @@ import MovieCard from "./components/movie-card/MovieCard.component";
 import "./App.css";
 
 const App = () => {
-  const { currentMovies, handleLoadMoreMovies, totalResults } = useMovieContext();
+  const { currentMovies, handleLoadMoreMovies, totalResults, isDisplayFavorites } = useMovieContext();
   const isMoreLoadAvailable = currentMovies.length && currentMovies.length !== totalResults;
 
   const [modalChildren, setModalChildren] = useState(null);
@@ -34,7 +34,7 @@ const App = () => {
           return <MovieCard key={movie.id} movie={movie} openModal={onOpen} setModalChildren={setModalChildren} />;
         })}
       </div>
-      {!!isMoreLoadAvailable && <Button borderRadius='5px' bgColor='#3c80fc' border='none'
+      {!!isMoreLoadAvailable && !isDisplayFavorites && <Button borderRadius='5px' bgColor='#3c80fc' border='none'
         variant='outline' color='whitesmoke' mt='8px' mb="8px" transform='translate(-50%, -50%)'
         left='50%' fontSize='2rem' padding='2rem 3rem'
         _hover={{
