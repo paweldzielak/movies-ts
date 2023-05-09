@@ -38,7 +38,6 @@ const NavBar = () => {
             w="50px"
             m={"0 0.6rem"}
             pointerEvents="none"
-            // children={<img src="search-icon.svg" className="navbar-search-icon" alt="magnifier-icon" />}
             children={<Icon as={Search2Icon} fontSize="2rem" color={"whiteAlpha.900"} />}
           />
           <Input
