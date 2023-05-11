@@ -56,10 +56,16 @@ export const getMediaFullUrls = (relativePath : string) : ImageURLS=> {
 } 
 
 export const getYoutubeEmbeded = (reference : string) : ReactElement | undefined => {
-  const result = <iframe width="560" height="315" src={`https://www.youtube.com/embed/${reference}`}
-      title="YouTube video player" frameBorder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-      allowFullScreen>
-  </iframe>
+  const result = (
+    <iframe
+      width="100%"
+      height="100%"
+      src={`https://www.youtube.com/embed/${reference}`}
+      title="YouTube video player"
+      frameBorder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowFullScreen
+    ></iframe>
+  );
   return reference ? result : undefined;
 }

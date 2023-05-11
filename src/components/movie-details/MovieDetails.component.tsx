@@ -39,26 +39,28 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
         <div className="media-details__title">{getTitles()}</div>
         <div className="media-details__overview">{details.overview}</div>
         {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
-      </div>
-      <Carousel
-        className={`media-details__img-carousel img-${imageSize}`}
-        autoPlay
-        infiniteLoop
-        interval={5000}
-        showStatus={false}
-        showIndicators={false}
-        showThumbs={false}
-        stopOnHover={true}
-        swipeable={false}
-        transitionTime={1000}
-      >
-        {imagePaths.map((path) => {
-          return <img src={path} alt="" key={path.split("/")[-1]} />;
-        })}
-      </Carousel>
-      {recommendations.map((r: RecommendationT) => {
-        return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>
-      })}
+        <Carousel
+          className={`media-details__img-carousel img-${imageSize}`}
+          autoPlay
+          infiniteLoop
+          interval={5000}
+          showStatus={false}
+          showIndicators={false}
+          showThumbs={false}
+          stopOnHover={true}
+          swipeable={false}
+          transitionTime={1000}
+        >
+          {imagePaths.map((path) => {
+            return <img src={path} alt="" key={path.split("/")[-1]} />;
+          })}
+        </Carousel>
+          </div>
+        <div className="recommendations">
+          {recommendations.map((r: RecommendationT) => {
+            return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
+          })}
+        </div>
     </div>
   );
 };
