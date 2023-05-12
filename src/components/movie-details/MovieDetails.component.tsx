@@ -37,8 +37,6 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
     <div className="media-details">
       <div className="media-details__container">
         <div className="media-details__title">{getTitles()}</div>
-        <div className="media-details__overview">{details.overview}</div>
-        {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
         <Carousel
           className={`media-details__img-carousel img-${imageSize}`}
           autoPlay
@@ -55,12 +53,14 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
             return <img src={path} alt="" key={path.split("/")[-1]} />;
           })}
         </Carousel>
-          </div>
-        <div className="recommendations">
-          {recommendations.map((r: RecommendationT) => {
-            return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
-          })}
-        </div>
+        <div className="media-details__overview">{details.overview}</div>
+        {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
+      </div>
+      <div className="recommendations">
+        {recommendations.map((r: RecommendationT) => {
+          return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
+        })}
+      </div>
     </div>
   );
 };

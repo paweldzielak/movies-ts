@@ -2,10 +2,9 @@ $details-color-dark: #1a202c;
 $details-color-light: #e6e6e6;
 
 .media-details {
-
   background-color: $details-color-dark;
 
-  &>* {
+    &>* {
     border: 1px solid blueviolet;
     padding: 0.5rem;
     margin: 0.5rem;
@@ -19,6 +18,8 @@ $details-color-light: #e6e6e6;
       padding: 0.5rem;
       margin: 0.5rem;
     }
+    display: grid;
+    grid-template-columns: 1fr minmax(auto, 20vw) 1fr;
   }
 
   &__title {
@@ -49,9 +50,14 @@ $details-color-light: #e6e6e6;
     }
   }
 
+  .carousel {
+    &>.control-arrow {
+      width: 8rem;
+    }
+  }
+
   &__overview {
     max-width: 50rem;
-    margin: 5rem auto;
     font-size: 1.8rem;
     margin: auto;
   }
@@ -80,10 +86,5 @@ $details-color-light: #e6e6e6;
       width: 780px;
     }
 
-    .carousel {
-      &>.control-arrow {
-        width: 8rem;
-      }
-    }
   }
 }
