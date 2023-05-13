@@ -78,13 +78,16 @@ $details-color-light: #e6e6e6;
       margin-right: auto;
     }
 
-    &__recommendations {
-      min-height: 20rem;
-    }
-
     .img-md {
       width: 780px;
     }
 
   }
+
+  &__recommendations {
+    min-height: 20rem;
+    display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: min-content;
+    }
 }

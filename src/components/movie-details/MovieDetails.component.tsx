@@ -56,7 +56,7 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
         <div className="media-details__overview">{details.overview}</div>
         {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>
-      <div className="recommendations">
+      <div className="media-details__recommendations">
         {recommendations.map((r: RecommendationT) => {
           return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
         })}
