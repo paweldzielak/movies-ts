@@ -54,6 +54,7 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
           })}
         </Carousel>
         <div className="media-details__overview">{details.overview}</div>
+        <div className="media-details__numbers">average vote / vote count</div>
         {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>
       <div className="media-details__recommendations">
