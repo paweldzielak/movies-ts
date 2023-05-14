@@ -41,3 +41,7 @@
     transform: rotate(360deg);
   }
 }
+
+.movies-card-container {
+   margin-bottom: 30px;
+}

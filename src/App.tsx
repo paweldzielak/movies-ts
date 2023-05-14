@@ -29,7 +29,7 @@ const App = () => {
   return (
     <>
       <NavBar />
-      <div className="movies-card-container" style={{ marginBottom: "30px" }}>
+      <div className="movies-card-container">
         {currentMovies.map((movie) => {
           return <MovieCard key={movie.id} movie={movie} openModal={onOpen} setModalChildren={setModalChildren} />;
         })}

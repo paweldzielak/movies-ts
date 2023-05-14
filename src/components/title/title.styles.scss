@@ -20,7 +20,7 @@
   }
 
   .genre-container {
-    color: rgb(86, 86, 86);
+    color: var(--color-gray-dark-2);
     margin-top: 0.8rem;
   }
 
@@ -33,7 +33,7 @@
   .year {
     margin: 0rem auto;
     font-size: 1.4rem;
-    color: rgb(86, 86, 86);
+    color: var(--color-gray-dark-2);
     
     &:hover {
       font-style: italic;
