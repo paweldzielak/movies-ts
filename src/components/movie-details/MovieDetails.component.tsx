@@ -8,7 +8,9 @@ import "./movieDetails.styles.scss";
 import { useBreakpoint } from "@chakra-ui/react";
 import { getMovieRecommendations } from "../../utils/movie.utils";
 import { MovieDetailsT, RecommendationT } from "../../types/types";
-import Recommendation from "./MovieRecommendation";
+import Recommendation from "./MovieRecommendation.component";
+import NumberDetails from "./NumberDetails.component";
+
 
 const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
   const { images, videos } = details;
@@ -22,6 +24,9 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
         <span>{details.original_title}</span>
       </>
   };
+
+  console.log("details", details);
+  
 
   useEffect(() => {
     getMovieRecommendations(details.id).then((r: RecommendationT[]) => setRecommendations(r));
@@ -54,13 +59,13 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
           })}
         </Carousel>
         <div className="media-details__overview">{details.overview}</div>
-        <div className="media-details__numbers">average vote / vote count</div>
+        <NumberDetails details={details} />
         {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>
       <div className="media-details__recommendations">
-        {recommendations.map((r: RecommendationT) => {
+        {/* {recommendations.map((r: RecommendationT) => {
           return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
-        })}
+        })} */}
       </div>
     </div>
   );

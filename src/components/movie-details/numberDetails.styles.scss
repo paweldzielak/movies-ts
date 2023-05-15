@@ -1,0 +1,18 @@
+.media-details__numbers {
+  display: flex;
+  justify-content: space-evenly;
+
+  &-rating>* {
+    margin: auto;
+  }
+
+  &-rating>img {
+    width: 20px;
+    height: 20px;
+  }
+
+  &-rating>.rating-title {
+    text-transform: uppercase;
+    // TODO change font to Roboto BOLD
+  }
+}
