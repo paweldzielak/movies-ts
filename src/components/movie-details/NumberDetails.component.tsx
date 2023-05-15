@@ -1,9 +1,12 @@
 import React from "react";
 import { MovieDetailsT } from "../../types/types";
+import { useUserDataContext } from "../../context/user-data.context";
 
 import "./numberDetails.styles.scss";
 
 const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
+  const { favoritesMovies, handleBookmarked } = useUserDataContext();
+
   return (
     <div className="media-details__numbers">
       <div className="media-details__numbers-rating">
@@ -12,7 +15,11 @@ const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
       </div>
       <div className="media-details__numbers-rating">
         <div className="rating-title">Your Favorite</div>
-        <img src="/favorite.svg" alt="" />
+        <img
+          src={favoritesMovies.includes(details.id) ? "/favorite.svg" : "notfavorite_light.svg"}
+          alt=""
+          onClick={() => handleBookmarked(details.id)}
+        />
       </div>
       <div className="media-details__numbers-rating">
         <div className="rating-title">popularity</div>
