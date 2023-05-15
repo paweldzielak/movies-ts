@@ -74,6 +74,8 @@ $details-color-light: var(--color-grey-light-3);
   &__numbers {
     grid-row: 3 / 4;
     grid-column: 2 / 3;
+    text-align: center;
+    margin-top: auto;
   }
 
   &__videos {
