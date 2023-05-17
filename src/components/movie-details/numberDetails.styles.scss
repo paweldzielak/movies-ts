@@ -2,20 +2,54 @@
   display: flex;
   justify-content: space-evenly;
 
+  &-rating {
+    flex: 1;
+  }
+
   &-rating>* {
     margin: auto;
   }
 
   &-rating>img {
-    width: 20px;
-    height: 20px;
+    width: 26px;
+    height: 26px;
     cursor: pointer;
   }
 
   &-rating>.rating-title {
     font-family: "Roboto";
+    letter-spacing: .16667em;
     font-weight: 900;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     text-transform: uppercase;
+    margin-bottom: 0.3rem;
+    color: var(--color-golden-brown);
+  }
+
+  .popularity-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .rating-child {
+    margin-bottom: 0;
+
+    &__main {
+      font-size: 1.8rem;
+      font-weight: 700;
+    }
+
+    &__secondary {
+      font-size: 1.1rem;
+      font-weight: 400;
+    }
+
+    &__icon {
+      width: 30px;
+      height: 30px;
+      margin: 0px 5px -9px auto;
+      display: inline;
+    }
   }
 }
