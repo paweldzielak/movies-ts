@@ -17,12 +17,14 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
   const [recommendations, setRecommendations] = useState<RecommendationT[]>([]);
 
   const getTitles = () => {
-    return (details.original_title === details.title) 
-    ? <span>{details.title}</span>
-    : <>
-        <span>{details.title}</span>
-        <span>{details.original_title}</span>
+    return details.original_title === details.title ? (
+      <span key={details.title}>{details.title}</span>
+    ) : (
+      <>
+        <span key={details.title}>{details.title}</span>
+        <span key={details.original_title}>{details.original_title}</span>
       </>
+    );
   };
 
   console.log("details", details);
