@@ -44,8 +44,8 @@ const App = () => {
         }} onClick={handleLoadMoreMovies}>Load more</Button>}
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
-        <ModalContent minW={"80%"} bg="#1a202c">
-          <ModalHeader bg="#1a202c" borderTopRadius={"2rem"}>
+        <ModalContent minW={"80%"} bg="var(--color-blue-darker)">
+          <ModalHeader bg="var(--color-blue-darker)" borderTopRadius="0.5rem">
             <ModalCloseButton
               bg="lightgray"
               w="24px"
@@ -56,7 +56,7 @@ const App = () => {
               }}
             />
           </ModalHeader>
-          <ModalBody bg="#1a202c">{modalChildren}</ModalBody>
+          <ModalBody bg="var(--color-blue-darker)">{modalChildren}</ModalBody>
           <ModalFooter>{"modal footer txt"}</ModalFooter>
         </ModalContent>
       </Modal>
