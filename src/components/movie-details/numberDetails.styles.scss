@@ -4,19 +4,19 @@
 
   &-rating {
     flex: 1;
+
+    &.rating-container span {
+      height: 0px;
+      margin-top: -3px;
+      display: inline-block;
+    }
   }
 
   &-rating>* {
     margin: auto;
   }
 
-  &-rating>img {
-    width: 26px;
-    height: 26px;
-    cursor: pointer;
-  }
-
-  &-rating>.rating-title {
+  &-rating .rating-title {
     font-family: "Roboto";
     letter-spacing: .16667em;
     font-weight: 900;
@@ -24,12 +24,6 @@
     text-transform: uppercase;
     margin-bottom: 0.3rem;
     color: var(--color-golden-brown);
-  }
-
-  .popularity-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
   }
 
   .rating-child {
@@ -50,6 +44,14 @@
       height: 30px;
       margin: 0px 5px -9px auto;
       display: inline;
+    }
+
+    &__aux {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: var(--color-grey-light-4);
+      margin-left: 22px;
+      display: inline-block;
     }
   }
 }

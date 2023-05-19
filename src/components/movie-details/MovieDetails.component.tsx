@@ -27,9 +27,6 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
     );
   };
 
-  console.log("details", details);
-  
-
   useEffect(() => {
     getMovieRecommendations(details.id).then((r: RecommendationT[]) => setRecommendations(r));
   }, []);
