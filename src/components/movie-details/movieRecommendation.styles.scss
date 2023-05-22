@@ -1,6 +1,32 @@
-.recommendation-container {
-  background-color: aliceblue;
-  width: auto;
-}
+.recommendation {
+  $recommendation-rating-size: 3vw;
 
-// recommendation-poster
+  &-container {
+    width: auto;
+    position: relative;
+    max-width: 25rem;
+  }
+
+  &-poster {
+    width: auto;
+    margin: auto;
+  }
+
+  &-rating {
+    font-family: Roboto;
+    font-weight: bold;
+    font-size: 1.6rem;
+    color: white;
+
+    position: absolute;
+    left: calc(50% - 1.5vw);
+    bottom: 0.4rem;
+    padding: 0.4rem;
+    background-color: var(--color-royal-gold);
+    width: 3vw;
+    text-align: center;
+    opacity: 0.8;
+    
+    border-radius: 0.4rem;
+  }
+}

@@ -6,8 +6,6 @@ import "./movieRecommendation.styles.scss";
 
 const Recommendation: React.FC<{ recommendation: RecommendationT }> = ({ recommendation }) => {
   const posterPath = getPosterFullUrl(recommendation.poster_path);
-
-  console.log(recommendation);
   const voteAverage = Math.round(recommendation.vote_average * 10) / 10;
 
   return (

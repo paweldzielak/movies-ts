@@ -29,7 +29,7 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
 
   useEffect(() => {
     getMovieRecommendations(details.id).then((r: RecommendationT[]) => setRecommendations(r));
-  }, []);
+  }, [details.id]);
 
   const imageSize = "md"; // change when other items are present
   const breakpoint = useBreakpoint({ ssr: false });
@@ -62,9 +62,9 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
         {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>
       <div className="media-details__recommendations">
-        {/* {recommendations.map((r: RecommendationT) => {
+        {recommendations.map((r: RecommendationT) => {
           return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
-        })} */}
+        })}
       </div>
     </div>
   );
