@@ -2,31 +2,44 @@
   $recommendation-rating-size: 3vw;
 
   &-container {
-    width: auto;
     position: relative;
     max-width: 25rem;
-  }
+    margin: 0 auto;
+    overflow: hidden;
 
-  &-poster {
-    width: auto;
-    margin: auto;
-  }
+    & .recommendation-poster {
+      max-width: 100%;
+      transition: all 0.8s; // longer & smoother
+      display: block;
+      width: 100%;
+      height: auto;
+      transform: scale(1);
+    }
 
-  &-rating {
-    font-family: Roboto;
-    font-weight: bold;
-    font-size: 1.6rem;
-    color: white;
+    &:hover .recommendation-poster {
+      transform: scale(1.05);
+    }
 
-    position: absolute;
-    left: calc(50% - 1.5vw);
-    bottom: 0.4rem;
-    padding: 0.4rem;
-    background-color: var(--color-royal-gold);
-    width: 3vw;
-    text-align: center;
-    opacity: 0.8;
-    
-    border-radius: 0.4rem;
+    & .recommendation-rating {
+      font-family: Roboto;
+      font-weight: bold;
+      font-size: 1.6rem;
+      color: white;
+
+      position: absolute;
+      left: calc(50% - 1.5vw);
+      bottom: 0.4rem;
+      padding: 0.4rem;
+      background-color: var(--color-royal-gold);
+      width: 3vw;
+      text-align: center;
+      transition: all 0.8s; // longer & smoother
+      opacity: 0.8;
+      border-radius: 0.4rem;
+    }
+
+    &:hover .recommendation-rating {
+      opacity: 1;
+    }
   }
 }
