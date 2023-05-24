@@ -59,7 +59,7 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
         </Carousel>
         <div className="media-details__overview">{details.overview}</div>
         <NumberDetails details={details} />
-        {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
+        {/* {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>} */}
       </div>
       <div className="media-details__recommendations">
         {recommendations.map((r: RecommendationT) => {

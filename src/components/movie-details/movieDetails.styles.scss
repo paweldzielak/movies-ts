@@ -5,7 +5,7 @@ $details-color-light: var(--color-grey-light-3);
   background-color: $details-color-dark;
 
   &>* {
-    border: 1px solid blueviolet;
+    // border: 1px solid blueviolet;
     padding: 0.5rem;
     margin: 0.5rem;
 
@@ -14,7 +14,7 @@ $details-color-light: var(--color-grey-light-3);
 
   &__container {
     &>* {
-      border: 1px solid blueviolet;
+      // border: 1px solid blueviolet;
       padding: 0.5rem;
       margin: 0.5rem;
     }
