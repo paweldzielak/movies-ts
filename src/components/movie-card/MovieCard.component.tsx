@@ -8,11 +8,10 @@ import MovieDetails from "../movie-details/MovieDetails.component";
 
 type MovieCardProps = {
   movie: MovieT;
-  openModal: () => void;
-  setModalChildren: React.Dispatch<React.SetStateAction<any>>;
+  openModal: (modalDetails: React.JSX.Element) => void;
 };
 
-const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildren }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
   const { favoritesMovies, handleBookmarked } = useUserDataContext();
   const [details, setDetails] = useState<MovieDetailsT>();
 
@@ -40,8 +39,8 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal, setModalChildre
   const openDetails = async () => {
     const details = await getDetails();
     const modalDetails = getDetailsChildren(details);
-    setModalChildren(modalDetails);
-    openModal();
+    // setModalChildren(modalDetails);
+    openModal(modalDetails);
   };
 
   const getReleaseYear = () => {

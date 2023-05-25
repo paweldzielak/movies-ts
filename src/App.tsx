@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -23,15 +24,20 @@ const App = () => {
   const { currentMovies, handleLoadMoreMovies, totalResults, isDisplayFavorites } = useMovieContext();
   const isMoreLoadAvailable = currentMovies.length && currentMovies.length !== totalResults;
 
-  const [modalChildren, setModalChildren] = useState(null);
+  const [modalChildren, setModalChildren] = useState<React.JSX.Element | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleModalOpen = (modalDetails: React.JSX.Element) => {
+    setModalChildren(modalDetails);
+    onOpen();
+  }
 
   return (
     <>
       <NavBar />
       <div className="movies-card-container">
         {currentMovies.map((movie) => {
-          return <MovieCard key={movie.id} movie={movie} openModal={onOpen} setModalChildren={setModalChildren} />;
+          return <MovieCard key={movie.id} movie={movie} openModal={handleModalOpen} />;
         })}
       </div>
       {!!isMoreLoadAvailable && !isDisplayFavorites && <Button borderRadius='5px' bgColor='#3c80fc' border='none'
