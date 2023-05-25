@@ -1,3 +1,4 @@
+@import '../mixins.scss';
 .media-details__numbers {
   display: flex;
   justify-content: space-evenly;
@@ -17,13 +18,7 @@
   }
 
   &-rating .rating-title {
-    font-family: "Roboto";
-    letter-spacing: .16667em;
-    font-weight: 900;
-    font-size: 1.4rem;
-    text-transform: uppercase;
-    margin-bottom: 0.3rem;
-    color: var(--color-golden-brown);
+    @include details-title;
   }
 
   .rating-child {

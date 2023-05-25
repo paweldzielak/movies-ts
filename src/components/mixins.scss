@@ -1,0 +1,10 @@
+@mixin details-title {
+  font-family: "Roboto";
+  letter-spacing: .16667em;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+  color: var(--color-golden-brown);
+  font-size: 1.4rem;
+}
+

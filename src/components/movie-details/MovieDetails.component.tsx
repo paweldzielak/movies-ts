@@ -5,7 +5,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a lo
 import { Carousel } from "react-responsive-carousel";
 
 import "./movieDetails.styles.scss";
-import { useBreakpoint } from "@chakra-ui/react";
+import { Divider, useBreakpoint } from "@chakra-ui/react";
 import { getMovieRecommendations } from "../../utils/movie.utils";
 import { MovieDetailsT, RecommendationT } from "../../types/types";
 import Recommendation from "./MovieRecommendation.component";
@@ -60,6 +60,11 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
         {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>
       <div className="media-details__recommendations">
+        <div className="media-details__recommendations-title">
+          <Divider borderColor='var(--color-golden-brown)' margin='auto 1vw' />
+          <span className="details-text">Recommendations</span>
+          <Divider borderColor='var(--color-golden-brown)' margin='auto 1vw' />
+        </div>
         {recommendations.map((r: RecommendationT) => {
           return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
         })}
