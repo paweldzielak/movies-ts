@@ -11,8 +11,12 @@ import { MovieDetailsT, RecommendationT } from "../../types/types";
 import Recommendation from "./MovieRecommendation.component";
 import NumberDetails from "./NumberDetails.component";
 
+type MovieDetailsProps = {
+  details: MovieDetailsT
+  openModal: (modalDetails: MovieDetailsT) => void;
+};
 
-const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
+const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
   const { images, videos } = details;
   const [recommendations, setRecommendations] = useState<RecommendationT[]>([]);
 
@@ -66,7 +70,7 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
           <Divider borderColor='var(--color-golden-brown)' margin='auto 1vw' />
         </div>
         {recommendations.map((r: RecommendationT) => {
-          return <Recommendation key={`r-${r.id}`} recommendation={r}></Recommendation>;
+          return <Recommendation key={`r-${r.id}`} recommendation={r} openModal={openModal}></Recommendation>;
         })}
       </div>
     </div>

@@ -4,11 +4,10 @@ import Title from "../title/Title.component";
 import "./movieCard.styles.scss";
 import { getMovieMoreDetails } from "../../utils/movie.utils";
 import { MovieDetailsT, MovieT } from "../../types/types";
-import MovieDetails from "../movie-details/MovieDetails.component";
 
 type MovieCardProps = {
   movie: MovieT;
-  openModal: (modalDetails: React.JSX.Element) => void;
+  openModal: (modalDetails: MovieDetailsT) => void;
 };
 
 const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
@@ -32,15 +31,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
     window.open(`https://www.imdb.com/title/${imdb_id}`, "_blank", "noreferrer");
   };
 
-  const getDetailsChildren = (rawDetails: MovieDetailsT) => {
-    return <MovieDetails details={rawDetails} />;
-  };
-
   const openDetails = async () => {
     const details = await getDetails();
-    const modalDetails = getDetailsChildren(details);
-    // setModalChildren(modalDetails);
-    openModal(modalDetails);
+    openModal(details);
   };
 
   const getReleaseYear = () => {

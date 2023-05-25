@@ -15,8 +15,10 @@ import {
 
 import { useMovieContext } from "./context/movies.context";
 
+import { MovieDetailsT } from "./types/types";
 import NavBar from "./components/nav-bar/NavBar.component";
 import MovieCard from "./components/movie-card/MovieCard.component";
+import MovieDetails from "./components/movie-details/MovieDetails.component";
 
 import "./App.css";
 
@@ -27,9 +29,13 @@ const App = () => {
   const [modalChildren, setModalChildren] = useState<React.JSX.Element | null>(null);
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleModalOpen = (modalDetails: React.JSX.Element) => {
-    setModalChildren(modalDetails);
-    onOpen();
+  const getDetailsChildren = (rawDetails: MovieDetailsT) => {
+    return <MovieDetails details={rawDetails} openModal={handleModalOpen} />;
+  };
+
+  const handleModalOpen = (modalDetails: MovieDetailsT) => {
+    setModalChildren(getDetailsChildren(modalDetails));
+    if (!isOpen) onOpen();
   }
 
   return (
