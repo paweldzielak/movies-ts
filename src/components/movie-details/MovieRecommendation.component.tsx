@@ -17,7 +17,6 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
 
   const handleClick = async () => {
     const newDetails = await getMovieMoreDetails(recommendation.id)
-    console.log('*handleRecommendationClick*', recommendation.id, newDetails);
     openModal(newDetails);
   }
 

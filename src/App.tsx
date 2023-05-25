@@ -7,7 +7,7 @@ import {
   ModalOverlay,
   ModalContent,
   ModalHeader,
-  ModalFooter,
+  // ModalFooter,
   ModalCloseButton,
   useDisclosure,
   ModalBody,
@@ -27,16 +27,23 @@ const App = () => {
   const isMoreLoadAvailable = currentMovies.length && currentMovies.length !== totalResults;
 
   const [modalChildren, setModalChildren] = useState<React.JSX.Element | null>(null);
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose, } = useDisclosure();
 
   const getDetailsChildren = (rawDetails: MovieDetailsT) => {
+    window.scrollTo({ top: 0, behavior: "smooth" }) // TODO make it work
     return <MovieDetails details={rawDetails} openModal={handleModalOpen} />;
   };
 
-  const handleModalOpen = (modalDetails: MovieDetailsT) => {
-    setModalChildren(getDetailsChildren(modalDetails));
-    if (!isOpen) onOpen();
+  const handleModalOpen = (movieDetails: MovieDetailsT) => {
+    setModalChildren(getDetailsChildren(movieDetails));
+    onOpen();
+    // TODO add /details/id to URL
   }
+
+  const handleModalClose = () => {
+    onClose();
+    // TODO remove /details/id from URL
+  } 
 
   return (
     <>
@@ -54,7 +61,7 @@ const App = () => {
           border: '1px solid #2c64fc',
           color: "white",
         }} onClick={handleLoadMoreMovies}>Load more</Button>}
-      <Modal isOpen={isOpen} onClose={onClose}>
+      <Modal isOpen={isOpen} onClose={handleModalClose}>
         <ModalOverlay />
         <ModalContent minW={"80%"} bg="var(--color-blue-darker)">
           <ModalHeader bg="var(--color-blue-darker)" borderTopRadius="0.5rem">
@@ -69,7 +76,7 @@ const App = () => {
             />
           </ModalHeader>
           <ModalBody bg="var(--color-blue-darker)">{modalChildren}</ModalBody>
-          <ModalFooter>{"modal footer txt"}</ModalFooter>
+          {/* <ModalFooter>{"modal footer txt"}</ModalFooter> */}
         </ModalContent>
       </Modal>
     </>
