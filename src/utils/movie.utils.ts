@@ -86,7 +86,13 @@ export const getMovieRecommendations = async (apiInternalMovieId: number, sortBy
     pages.forEach(singlePage => results.push(...singlePage.results));
   }
   const sorted = results.sort((first, second) => second[sortBy] - first[sortBy]);
-  return sorted
+  const reduced = sorted.reduce((previousMovies: MovieT[], currentMovie: MovieT) => {
+    if (previousMovies.some((movie : MovieT) => movie.id === currentMovie.id)) return previousMovies;
+    previousMovies.push(currentMovie);
+    return previousMovies;
+  }, [] as MovieT[])
+
+  return reduced
 }
 
 export const getAllMoviesByIds = async (ids: number[]) : Promise<MovieT[]> => {

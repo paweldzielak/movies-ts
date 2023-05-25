@@ -53,13 +53,11 @@ const MovieDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
           swipeable={false}
           transitionTime={1000}
         >
-          {imagePaths.map((path) => {
-            return <img src={path} alt="" key={path.split("/")[-1]} />;
-          })}
+          {imagePaths.map((path) => <img src={path} alt="" key={path.split("/").pop()} />)}
         </Carousel>
         <div className="media-details__overview">{details.overview}</div>
         <NumberDetails details={details} />
-        {/* {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>} */}
+        {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>
       <div className="media-details__recommendations">
         {recommendations.map((r: RecommendationT) => {
