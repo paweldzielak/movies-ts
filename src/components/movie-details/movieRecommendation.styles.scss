@@ -6,6 +6,7 @@
     max-width: 25rem;
     margin: 0 auto;
     overflow: hidden;
+    cursor: pointer;
 
     & .recommendation-poster {
       max-width: 100%;
@@ -32,7 +33,7 @@
       bottom: 0.4rem;
       padding: 0.4rem;
       background-color: var(--color-royal-gold);
-      width: 3vw;
+      width: $recommendation-rating-size;
       text-align: center;
       transition: all 0.8s; // longer & smoother
       opacity: 0.8;
