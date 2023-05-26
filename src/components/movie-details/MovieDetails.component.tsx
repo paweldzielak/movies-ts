@@ -4,12 +4,14 @@ import { getMediaFullUrls, getYoutubeEmbeded } from "../../utils/media.utils";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
-import "./movieDetails.styles.scss";
 import { Divider, useBreakpoint } from "@chakra-ui/react";
 import { getMovieRecommendations } from "../../utils/movie.utils";
 import { MovieDetailsT, RecommendationT } from "../../types/types";
 import Recommendation from "./MovieRecommendation.component";
 import NumberDetails from "./NumberDetails.component";
+
+
+import "./movieDetails.styles.scss";
 
 type MovieDetailsProps = {
   details: MovieDetailsT
@@ -36,8 +38,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
   }, [details.id]);
 
   const imageSize = "md"; // change when other items are present
-  const breakpoint = useBreakpoint({ ssr: false });
-  console.log("🚀 ~ file: MovieDetails.component.jsx:15 ~ MovieDetails ~ breakpoint:", breakpoint);
+  // const breakpoint = useBreakpoint({ ssr: false });
 
   const imagePaths = images.backdrops.map(({ file_path }) => getMediaFullUrls(file_path)[imageSize]);
 
@@ -69,7 +70,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
           <span className="details-text">Recommendations</span>
           <Divider borderColor='var(--color-golden-brown)' margin='auto 1vw' />
         </div>
-        {recommendations.map((r: RecommendationT) => {
+        {recommendations.slice(0, 4).map((r: RecommendationT) => {
           return <Recommendation key={`r-${r.id}`} recommendation={r} openModal={openModal}></Recommendation>;
         })}
       </div>

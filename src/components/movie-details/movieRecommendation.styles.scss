@@ -19,7 +19,7 @@
     }
 
     &:hover .recommendation-poster {
-        animation: zoom-in 5s linear forwards;
+      animation: zoom-in 5s linear forwards;
     }
 
     & .recommendation-rating {
@@ -42,6 +42,81 @@
 
     &:hover .recommendation-rating {
       opacity: 1;
+    }
+
+    // flipped:
+    &-flipped {
+      max-width: 25rem;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-row-gap: 3.5rem;
+      width: 100%;
+      height: 100%;
+      background-color: var(--color-golden-brown-light);
+      margin: 0 auto;
+      overflow: hidden;
+      aspect-ratio: 250/375;
+
+      & .flipped {
+        &__poster {
+          transform: scale(1.2);
+          width: 100%;
+          margin-top: 5%;
+          border: 1px solid blueviolet;
+          grid-column: 1 /-1;
+          grid-row: 1/ -1;
+          z-index: 1;
+        }
+
+        &__favorite {
+          width: 2rem;
+          height: 2rem;
+          grid-column: 2 /3;
+          grid-row: 1/ 2;
+          z-index: 2;
+          justify-self: right;
+          margin: 0.6rem;
+        }
+
+        &__title {
+          grid-column: 1 /-1;
+          grid-row: 1/2;
+          justify-self: center;
+          width: 80%;
+          font-size: 1.6rem;
+          text-align: center;
+          padding: 1.25rem;
+          background-color: #101d2c;
+          color: #fff;
+          align-self: end;
+          transform: translateY(50%);
+          z-index: 3;
+        }
+
+        &__info {
+          color: #6d5d4b;
+          align-self: center;
+          margin-left: 2rem;
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+          font-size: 1.4rem;
+        }
+
+        &__btn {
+          grid-column: 1 /-1;
+          background-color: #c69963;
+          color: #fff;
+          border: none;
+          border-radius: 0;
+          font-family: "Josefin Sans", sans-serif;
+          font-size: 1.5rem;
+          text-transform: uppercase;
+          padding: 0.5rem 3rem;
+          cursor: pointer;
+          transition: all .2s;
+        }
+      }
     }
   }
 }
