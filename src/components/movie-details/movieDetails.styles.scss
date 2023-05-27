@@ -91,8 +91,8 @@ $details-color-light: var(--color-grey-light-3);
     min-height: 20rem;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    row-gap: 1rem;
+    justify-content: center;
+    gap: 1rem;
 
     &-title {
       width: 100%;
