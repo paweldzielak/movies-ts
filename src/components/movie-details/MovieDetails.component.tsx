@@ -62,7 +62,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
         </Carousel>
         <div className="media-details__overview">{details.overview}</div>
         <NumberDetails details={details} />
-        {!!videos.results && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
+        {(details.video && videos.results?.length) && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>
       <div className="media-details__recommendations">
         <div className="media-details__recommendations-title">
