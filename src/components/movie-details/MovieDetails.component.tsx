@@ -70,7 +70,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
           <span className="details-text">Recommendations</span>
           <Divider borderColor='var(--color-golden-brown)' margin='auto 1vw' />
         </div>
-        {recommendations.slice(0, 4).map((r: RecommendationT) => {
+        {recommendations.map((r: RecommendationT) => {
           return <Recommendation key={`r-${r.id}`} recommendation={r} openModal={openModal}></Recommendation>;
         })}
       </div>

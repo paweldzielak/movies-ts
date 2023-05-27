@@ -34,26 +34,27 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   }
 
   return (
-    <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical">
-      <div className="recommendation-container" onClick={handleFlip}>
-        <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
-        <p className="recommendation-rating">{voteAverage}</p>
-      </div>
+    <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
+      <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
+        <div className="recommendation-container" >
+          <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
+        </div>
 
-      <div className="recommendation-container-flipped">
-        <img className="flipped__poster" src={backdropPath} alt={recommendation.title} />
-        <img className="flipped__favorite" style={{ cursor: 'pointer' }}
-          src={favoritesMovies.includes(recommendation.id) ? "/favorite.svg" : "notfavorite_light.svg"}
-          alt="" onClick={() => handleBookmarked(recommendation.id)}
-        />
-        <h5 className="flipped__title">{recommendation.title}</h5>
-        <div className="flipped__info">{recommendation.release_date}</div> 
-        <div className="flipped__info">{recommendation.media_type}</div> 
-        <div className="flipped__info">{recommendation.original_language}</div> 
-        <div className="flipped__info">{recommendation.genre_ids}</div>
-        <button className="btn flipped__btn" onClick={handleClick}>Show more details</button>
-      </div>
-    </ReactCardFlip>
+        <div className="recommendation-container-flipped">
+          <img className="flipped__poster" src={backdropPath} alt={recommendation.title} />
+          <img className="flipped__favorite" style={{ cursor: 'pointer' }}
+            src={favoritesMovies.includes(recommendation.id) ? "/favorite.svg" : "notfavorite_light.svg"}
+            alt="" onClick={() => handleBookmarked(recommendation.id)}
+          />
+          <h5 className="flipped__title">{recommendation.title}</h5>
+          <div className="flipped__info">{recommendation.release_date}</div> 
+          <div className="flipped__info">{voteAverage}</div> 
+          <div className="flipped__info">{recommendation.original_language}</div> 
+          <div className="flipped__info">{recommendation.genre_ids}</div>
+          <button className="btn flipped__btn" onClick={handleClick}>Show more details</button>
+        </div>
+      </ReactCardFlip>
+    </span>
   );
 };
 
