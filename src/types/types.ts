@@ -8,6 +8,40 @@ export type FilteredYearT = {
     "value": number;
 }
 
+export type MovieApiT = {
+  adult: boolean;
+  backdrop_path: string;
+  genre_ids?: (number)[] | null;
+  genres: string[] | Genre[];
+  id: number;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  release_date: string;
+  title: string;
+  video: boolean;
+  vote_average: number;
+  vote_count: number;
+}
+
+export const isMovieApiT = (m: MovieApiT): m is MovieApiT => {
+    return m.adult !== undefined && 
+    m.backdrop_path !== undefined &&
+    (m.genre_ids !== undefined || m.genres !== undefined) &&
+    m.id !== undefined &&
+    m.overview !== undefined &&
+    m.popularity !== undefined &&
+    m.poster_path !== undefined &&
+    m.release_date !== undefined &&
+    m.title !== undefined &&
+    m.video !== undefined &&
+    m.vote_average !== undefined &&
+    m.vote_count !== undefined
+}
+
+
 export type MovieT = {
   adult: boolean;
   backdrop_path: string;

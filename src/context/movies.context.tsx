@@ -3,7 +3,7 @@ import { createContext, useState, useCallback, useEffect } from "react";
 
 import { getAllMoviesByIds, getDiscoverMovies, getGenresMapFromAPI, getSearchMovies } from "../utils/movie.utils";
 import { getPosterFullUrl } from "../utils/media.utils";
-import { MovieT, FilteredYearT, Genre } from "../types/types";
+import { MovieT, FilteredYearT, Genre, MovieApiT, isMovieApiT } from "../types/types";
 import { useUserDataContext } from "./user-data.context";
 
 export type MovieContextState = {
@@ -46,8 +46,9 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   const getParsedMovies = useCallback(
-    (movies: MovieT[], genres: Map<number, string> = genreMap) => {
-      return movies.map((movie) => {
+    (movies: MovieApiT[], genres: Map<number, string> = genreMap) => {
+      const properlyImplementedMovies = movies.filter(isMovieApiT)
+      return properlyImplementedMovies.map((movie) => {
         const result = {
           id: movie.id,
           title: movie.title,
