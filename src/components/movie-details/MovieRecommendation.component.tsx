@@ -7,6 +7,7 @@ import ReactCardFlip from "react-card-flip";
 import { useUserDataContext } from "../../context/user-data.context";
 
 import "./movieRecommendation.styles.scss";
+import { useMovieContext } from "../../context/movies.context";
 
 type MovieRecommendationProps = {
   recommendation: RecommendationT;
@@ -16,6 +17,8 @@ type MovieRecommendationProps = {
 
 const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, openModal }) => {
 
+  const { genreMap } = useMovieContext()
+
   const { favoritesMovies, handleBookmarked } = useUserDataContext();
   const [isFlipped, setIsFlipped] = useState<boolean>(false);
 
@@ -23,6 +26,8 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   const backdropPath = getPosterFullUrl(recommendation.backdrop_path);
 
   const voteAverage = Math.round(recommendation.vote_average * 10) / 10;
+
+  const genreList = recommendation.genre_ids?.map((id) => genreMap.get(id));
 
   const handleClick = async () => {
     const newDetails = await getMovieMoreDetails(recommendation.id)
@@ -34,11 +39,11 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   }
 
   return (
-    <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
-      <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
-        <div className="recommendation-container" >
-          <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
-        </div>
+    // <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
+    //   <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
+    //     <div className="recommendation-container" >
+    //       <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
+    //     </div>
 
         <div className="recommendation-container-flipped">
           <img className="flipped__poster" src={backdropPath} alt={recommendation.title} />
@@ -47,14 +52,28 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
             alt="" onClick={() => handleBookmarked(recommendation.id)}
           />
           <h5 className="flipped__title">{recommendation.title}</h5>
-          <div className="flipped__info">{recommendation.release_date}</div> 
-          <div className="flipped__info">{voteAverage}</div> 
-          <div className="flipped__info">{recommendation.original_language}</div> 
-          <div className="flipped__info">{recommendation.genre_ids}</div>
+          <div className="flipped__info">
+            <img src="/calendar.svg" alt="" />
+            {recommendation.release_date}
+          </div> 
+          <div className="flipped__info">
+            <img src="/popularity_chart.svg" alt="" />
+            {voteAverage}
+          </div> 
+          {/* <div className="flipped__info">
+            <img src="/language.svg" alt="" />
+            {recommendation.original_language}
+            </div>  */}
+          {/* <div className="flipped__info genres">{genreList}</div> */}
+              <div className="flipped__info genre-container">
+            {!!genreList?.length && genreList.map((genre) => {
+              return <span key={'r'+recommendation.title + genre} className="genre__recommendation">{` ${genre}`}</span>;
+            })}
+          </div>
           <button className="btn flipped__btn" onClick={handleClick}>Show more details</button>
         </div>
-      </ReactCardFlip>
-    </span>
+    //   </ReactCardFlip>
+    // </span>
   );
 };
 

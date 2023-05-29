@@ -99,6 +99,22 @@
           align-items: center;
           gap: 0.8rem;
           font-size: 1.4rem;
+
+          & img {
+            width: 1.8rem;
+            height: 1.8rem;
+          }
+
+          &.genre-container {
+            grid-column: 1 /-1;
+            justify-content: center;
+
+            & .genre__recommendation:not(:first-of-type) {
+              &:before {
+                content: '/';
+              }
+            }
+          }
         }
 
         &__btn {
