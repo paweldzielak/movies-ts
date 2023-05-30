@@ -9,7 +9,7 @@ import { useUserDataContext } from "../../context/user-data.context";
 import "./movieRecommendation.styles.scss";
 import { useMovieContext } from "../../context/movies.context";
 import CalendarIcon from "../../Icons/CalendarIcon";
-import RatingIcon from "../../Icons/PopularityChartIcon";
+import RatingIcon from "../../Icons/RatingIcon";
 
 type MovieRecommendationProps = {
   recommendation: RecommendationT;

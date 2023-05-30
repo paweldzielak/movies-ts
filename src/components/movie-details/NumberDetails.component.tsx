@@ -3,7 +3,8 @@ import { MovieDetailsT } from "../../types/types";
 import { useUserDataContext } from "../../context/user-data.context";
 
 import "./numberDetails.styles.scss";
-import RatingIcon from "../../Icons/PopularityChartIcon";
+import RatingIcon from "../../Icons/RatingIcon";
+import PopularityIcon from "../../Icons/PopularityIcon";
 
 const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
   const { favoritesMovies, handleBookmarked } = useUserDataContext();
@@ -32,7 +33,7 @@ const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
       <div className="media-details__numbers-rating">
         <div className="rating-title">popularity</div>
         <div className="rating-child">
-          <img className="rating-child__icon" src="/popularity_chart.svg" alt="" />
+        <PopularityIcon stroke="var(--color-blue-darker)" strokeWidth={0.6} className="rating-child__icon" />
           <span className="rating-child__main">{Math.round(details.popularity * 10) / 10}</span>
         </div>
       </div>
