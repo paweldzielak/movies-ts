@@ -8,6 +8,7 @@ import { useUserDataContext } from "../../context/user-data.context";
 
 import "./movieRecommendation.styles.scss";
 import { useMovieContext } from "../../context/movies.context";
+import CalendarIcon from "../../Icons/CalendarIcon";
 
 type MovieRecommendationProps = {
   recommendation: RecommendationT;
@@ -39,11 +40,11 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   }
 
   return (
-    // <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
-    //   <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
-    //     <div className="recommendation-container" >
-    //       <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
-    //     </div>
+    <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
+      <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
+        <div className="recommendation-container" >
+          <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
+        </div>
 
         <div className="recommendation-container-flipped">
           <img className="flipped__poster" src={backdropPath} alt={recommendation.title} />
@@ -53,27 +54,29 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
           />
           <h5 className="flipped__title">{recommendation.title}</h5>
           <div className="flipped__info">
-            <img src="/calendar.svg" alt="" />
+            <CalendarIcon />
             {recommendation.release_date}
-          </div> 
+          </div>
           <div className="flipped__info">
             <img src="/popularity_chart.svg" alt="" />
             {voteAverage}
-          </div> 
+          </div>
           {/* <div className="flipped__info">
             <img src="/language.svg" alt="" />
             {recommendation.original_language}
             </div>  */}
           {/* <div className="flipped__info genres">{genreList}</div> */}
-              <div className="flipped__info genre-container">
-            {!!genreList?.length && genreList.map((genre) => {
-              return <span key={'r'+recommendation.title + genre} className="genre__recommendation">{` ${genre}`}</span>;
+          <div className="flipped__info genre-container">
+            {!!genreList?.length && genreList.map((genre, index) => {
+              console.log(genre, index);
+              if ((index + 1) % 2 === 0) return <><br /><span key={'r' + recommendation.title + genre} className="genre__recommendation">{` ${genre}`}</span></>
+              return <span key={'r' + recommendation.title + genre} className="genre__recommendation">{` ${genre}`}</span>;
             })}
           </div>
           <button className="btn flipped__btn" onClick={handleClick}>Show more details</button>
         </div>
-    //   </ReactCardFlip>
-    // </span>
+      </ReactCardFlip>
+    </span>
   );
 };
 
