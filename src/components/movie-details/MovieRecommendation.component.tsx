@@ -9,6 +9,7 @@ import { useUserDataContext } from "../../context/user-data.context";
 import "./movieRecommendation.styles.scss";
 import { useMovieContext } from "../../context/movies.context";
 import CalendarIcon from "../../Icons/CalendarIcon";
+import RatingIcon from "../../Icons/PopularityChartIcon";
 
 type MovieRecommendationProps = {
   recommendation: RecommendationT;
@@ -40,11 +41,11 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   }
 
   return (
-    <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
-      <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
-        <div className="recommendation-container" >
-          <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
-        </div>
+    // <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
+    //   <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
+        // <div className="recommendation-container" >
+        //   <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
+        // </div>
 
         <div className="recommendation-container-flipped">
           <img className="flipped__poster" src={backdropPath} alt={recommendation.title} />
@@ -54,11 +55,11 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
           />
           <h5 className="flipped__title">{recommendation.title}</h5>
           <div className="flipped__info">
-            <CalendarIcon />
+        <CalendarIcon width='2rem' />
             {recommendation.release_date}
           </div>
           <div className="flipped__info">
-            <img src="/popularity_chart.svg" alt="" />
+        <RatingIcon width='2rem' />
             {voteAverage}
           </div>
           {/* <div className="flipped__info">
@@ -75,8 +76,8 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
           </div>
           <button className="btn flipped__btn" onClick={handleClick}>Show more details</button>
         </div>
-      </ReactCardFlip>
-    </span>
+  //    </ReactCardFlip>
+  //  </span>
   );
 };
 

@@ -3,6 +3,7 @@ import { MovieDetailsT } from "../../types/types";
 import { useUserDataContext } from "../../context/user-data.context";
 
 import "./numberDetails.styles.scss";
+import RatingIcon from "../../Icons/PopularityChartIcon";
 
 const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
   const { favoritesMovies, handleBookmarked } = useUserDataContext();
@@ -12,7 +13,7 @@ const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
       <div className="media-details__numbers-rating rating-container">
         <div className="rating-title">Rating</div>
         <div className="rating-child">
-          <img className="rating-child__icon" src="/rating.svg" alt="" />
+          <RatingIcon className="rating-child__icon" />
           <span className="rating-child__main">{Math.round(details.vote_average * 100) / 100}</span>
           <span className="rating-child__secondary">/10</span>
           <br />

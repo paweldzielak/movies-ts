@@ -109,7 +109,13 @@
             grid-column: 1 /-1;
             justify-content: center;
 
+            & .genre__recommendation {
+              display: flex;
+              flex-wrap: wrap;
+            }
+
             & .genre__recommendation:not(:first-of-type) {
+              white-space: nowrap;
               &:before {
                 content: '/';
               }
