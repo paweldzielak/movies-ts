@@ -63,15 +63,8 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
         <RatingIcon width='2rem' />
             {voteAverage}
           </div>
-          {/* <div className="flipped__info">
-            <img src="/language.svg" alt="" />
-            {recommendation.original_language}
-            </div>  */}
-          {/* <div className="flipped__info genres">{genreList}</div> */}
           <div className="flipped__info genre-container">
-            {!!genreList?.length && genreList.map((genre, index) => {
-              console.log(genre, index);
-              if ((index + 1) % 2 === 0) return <><br /><span key={'r' + recommendation.title + genre} className="genre__recommendation">{` ${genre}`}</span></>
+            {!!genreList?.length && genreList.map((genre) => {
               return <span key={'r' + recommendation.title + genre} className="genre__recommendation">{` ${genre}`}</span>;
             })}
           </div>

@@ -64,8 +64,9 @@
           grid-column: 1 /-1;
           grid-row: 1/ -1;
           z-index: 1;
+
           &[src="default-image.jpg"] {
-              margin-top: -109px;
+            margin-top: -109px;
             }
         }
 
@@ -102,6 +103,7 @@
           align-items: center;
           gap: 0.8rem;
           font-size: 1.4rem;
+          transform: translateY(50%);
 
           & img {
             width: 1.8rem;
@@ -111,17 +113,15 @@
           &.genre-container {
             grid-column: 1 /-1;
             justify-content: center;
+            display: flex;
+              flex-direction: column;
+              margin-left: 0;
+              gap: 0px;
+              height: 25px;
+              overflow: visible;
 
             & .genre__recommendation {
-              display: flex;
-              flex-wrap: wrap;
-            }
-
-            & .genre__recommendation:not(:first-of-type) {
-              white-space: nowrap;
-              &:before {
-                content: '/';
-              }
+              line-height: 95%;
             }
           }
         }
@@ -138,6 +138,7 @@
           padding: 0.5rem 3rem;
           cursor: pointer;
           transition: all .2s;
+          transform: translateY(6%);
         }
       }
     }
