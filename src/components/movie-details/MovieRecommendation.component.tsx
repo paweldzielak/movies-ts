@@ -10,6 +10,7 @@ import "./movieRecommendation.styles.scss";
 import { useMovieContext } from "../../context/movies.context";
 import CalendarIcon from "../../Icons/CalendarIcon";
 import RatingIcon from "../../Icons/RatingIcon";
+import FavoriteIcon from "../../Icons/FavoriteIcon";
 
 type MovieRecommendationProps = {
   recommendation: RecommendationT;
@@ -39,6 +40,7 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   const handleFlip = () => {
     setIsFlipped(prevState => !prevState);
   }
+  const isFavorite = favoritesMovies.includes(recommendation.id)
 
   return (
     // <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
@@ -49,10 +51,9 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
 
         <div className="recommendation-container-flipped">
           <img className="flipped__poster" src={backdropPath} alt={recommendation.title} />
-          <img className="flipped__favorite" style={{ cursor: 'pointer' }}
-            src={favoritesMovies.includes(recommendation.id) ? "/favorite.svg" : "notfavorite_light.svg"}
-            alt="" onClick={() => handleBookmarked(recommendation.id)}
-          />
+          <FavoriteIcon fill={isFavorite ? "#ED8A19" : "var(--color-blue-darker)"}
+            stroke={isFavorite ? "none" : "currentColor"} strokeWidth={3}
+            className="flipped__favorite" onClick={() => handleBookmarked(recommendation.id)} />
           <h5 className="flipped__title">{recommendation.title}</h5>
           <div className="flipped__info">
         <CalendarIcon width='2rem' />

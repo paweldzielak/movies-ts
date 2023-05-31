@@ -4,6 +4,7 @@ import Title from "../title/Title.component";
 import "./movieCard.styles.scss";
 import { getMovieMoreDetails } from "../../utils/movie.utils";
 import { MovieDetailsT, MovieT } from "../../types/types";
+import FavoriteIcon from "../../Icons/FavoriteIcon";
 
 type MovieCardProps = {
   movie: MovieT;
@@ -50,13 +51,9 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
       </div>
       <div className="vote-favorite-container">
         <span className="vote">{movie.vote_average}</span>
-        <img
-          className="favoriteButton"
-          alt={`${movie.id}-favoriteButton`}
-          src={`${window.location.origin}/${isFavorite ? "favorite" : "notfavorite"}.svg`}
-          title={isFavorite ? "Remove from favorites" : "Add to favorites"}
-          onClick={() => handleBookmarked(movie.id)}
-        />
+        <FavoriteIcon fill={isFavorite ? "#ED8A19" : "none"}
+                    stroke={isFavorite ? "none" : "currentColor"}
+                    className="favoriteButton" onClick={() => handleBookmarked(movie.id)} />
         <img
           className="imdb-img"
           alt={`Open ${movie.title} on IMDB`}
