@@ -5,9 +5,12 @@ import { useUserDataContext } from "../../context/user-data.context";
 import "./numberDetails.styles.scss";
 import RatingIcon from "../../Icons/RatingIcon";
 import PopularityIcon from "../../Icons/PopularityIcon";
+import FavoriteIcon from "../../Icons/FavoriteIcon";
 
 const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
   const { favoritesMovies, handleBookmarked } = useUserDataContext();
+
+  const isFavorite = favoritesMovies.includes(details.id)
 
   return (
     <div className="media-details__numbers">
@@ -24,10 +27,9 @@ const NumberDetails: React.FC<{ details: MovieDetailsT }> = ({ details }) => {
       <div className="media-details__numbers-rating">
         <div className="rating-title">Favorite</div>
         <div className="rating-child">
-          <img className="rating-child__icon" style={{ cursor: 'pointer' }}
-          src={favoritesMovies.includes(details.id) ? "/favorite.svg" : "notfavorite_light.svg"}
-            alt="" onClick={() => handleBookmarked(details.id)}
-          />
+          <FavoriteIcon fill={isFavorite ? "#ED8A19" : "none"}
+            stroke={isFavorite ? "none" : "currentColor"} strokeWidth='2.5px'
+            className="rating-child__icon" onClick={() => handleBookmarked(details.id)} />
         </div>
       </div>
       <div className="media-details__numbers-rating">
