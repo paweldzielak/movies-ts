@@ -43,11 +43,11 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   const isFavorite = favoritesMovies.includes(recommendation.id)
 
   return (
-    // <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
-    //   <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
-        // <div className="recommendation-container" >
-        //   <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
-        // </div>
+    <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
+      <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
+        <div className="recommendation-container" >
+          <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
+        </div>
 
         <div className="recommendation-container-flipped">
           <img className="flipped__poster" src={backdropPath} alt={recommendation.title} />
@@ -56,11 +56,11 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
             className="flipped__favorite" onClick={() => handleBookmarked(recommendation.id)} />
           <h5 className="flipped__title">{recommendation.title}</h5>
           <div className="flipped__info">
-        <CalendarIcon width='2rem' />
+            <CalendarIcon width='2rem' />
             {recommendation.release_date}
           </div>
           <div className="flipped__info">
-        <RatingIcon width='2rem' />
+            <RatingIcon width='2rem' />
             {voteAverage}
           </div>
           <div className="flipped__info genre-container">
@@ -70,8 +70,8 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
           </div>
           <button className="btn flipped__btn" onClick={handleClick}>Show more details</button>
         </div>
-  //    </ReactCardFlip>
-  //  </span>
+      </ReactCardFlip>
+    </span>
   );
 };
 
