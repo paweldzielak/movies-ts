@@ -1,5 +1,5 @@
 @mixin details-title {
-  font-family: "Roboto";
+  font-family: var(--font-family-2);
   letter-spacing: .16667em;
   font-weight: 900;
   text-transform: uppercase;
