@@ -43,7 +43,7 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
   const isFavorite = favoritesMovies.includes(recommendation.id)
 
   return (
-    <span onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
+    <div onMouseEnter={handleFlip} onMouseLeave={handleFlip}>
       <ReactCardFlip isFlipped={isFlipped} flipDirection="vertical" >
         <div className="recommendation-container" >
           <img className="recommendation-poster" src={posterPath} alt={recommendation.title} />
@@ -55,23 +55,23 @@ const Recommendation: React.FC<MovieRecommendationProps> = ({ recommendation, op
             stroke={isFavorite ? "none" : "currentColor"} strokeWidth={3}
             className="flipped__favorite" onClick={() => handleBookmarked(recommendation.id)} />
           <h5 className="flipped__title">{recommendation.title}</h5>
-          <div className="flipped__info">
-            <CalendarIcon width='2rem' />
-            {recommendation.release_date}
-          </div>
-          <div className="flipped__info">
-            <RatingIcon width='2rem' />
-            {voteAverage}
-          </div>
           <div className="flipped__info genre-container">
             {!!genreList?.length && genreList.map((genre) => {
               return <span key={'r' + recommendation.title + genre} className="genre__recommendation">{` ${genre}`}</span>;
             })}
           </div>
+          <div className="flipped__info">
+            <CalendarIcon width='2rem' />
+            {recommendation.release_date.split('-')[0]}
+          </div>
+          <div className="flipped__info">
+            <RatingIcon width='2rem' />
+            {voteAverage}
+          </div>
           <button className="btn flipped__btn" onClick={handleClick}>Show more details</button>
         </div>
       </ReactCardFlip>
-    </span>
+    </div>
   );
 };
 

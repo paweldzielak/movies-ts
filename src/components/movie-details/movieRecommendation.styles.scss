@@ -109,12 +109,12 @@
           font-weight: 500;
           color: #6d5d4b;
           align-self: center;
-          margin-left: 2rem;
           display: flex;
           align-items: center;
           gap: 0.8rem;
           font-size: 1.4rem;
           transform: translateY(50%);
+          justify-content: center;
 
           & img {
             width: 1.8rem;
@@ -132,7 +132,8 @@
             height: 25px;
             overflow: visible;
 
-            margin-top: -30px;
+            margin-top: -2.5rem;
+            margin-bottom: -3rem;
 
             & .genre__recommendation {
               letter-spacing: 0.075rem;
