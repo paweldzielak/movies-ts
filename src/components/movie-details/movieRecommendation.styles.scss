@@ -56,6 +56,10 @@
       overflow: hidden;
       aspect-ratio: 250/375;
 
+      & * {
+        font-family: Roboto;
+      }
+
       & .flipped {
         &__poster {
           transform: scale(1.2);
@@ -67,7 +71,7 @@
 
           &[src="default-image.jpg"] {
             margin-top: -109px;
-            }
+          }
         }
 
         &__favorite {
@@ -101,6 +105,8 @@
         }
 
         &__info {
+          font-size: 1.4rem;
+          font-weight: 700;
           color: #6d5d4b;
           align-self: center;
           margin-left: 2rem;
@@ -116,14 +122,15 @@
           }
 
           &.genre-container {
+            font-weight: normal;
             grid-column: 1 /-1;
             justify-content: center;
             display: flex;
-              flex-direction: column;
-              margin-left: 0;
-              gap: 0px;
-              height: 25px;
-              overflow: visible;
+            flex-direction: column;
+            margin-left: 0;
+            gap: 0px;
+            height: 25px;
+            overflow: visible;
 
             & .genre__recommendation {
               line-height: 95%;
@@ -142,7 +149,7 @@
           text-transform: uppercase;
           padding: 0.5rem 3rem;
           cursor: pointer;
-          transition: all .2s;
+          transition: all 0.2s;
           transform: translateY(6%);
         }
       }
