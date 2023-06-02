@@ -132,7 +132,10 @@
             height: 25px;
             overflow: visible;
 
+            margin-top: -30px;
+
             & .genre__recommendation {
+              letter-spacing: 0.075rem;
               line-height: 95%;
             }
           }
@@ -146,11 +149,16 @@
           border-radius: 0;
           font-family: var(--font-family-fancy-1), sans-serif;
           font-size: 1.5rem;
+          font-weight: 400;
           text-transform: uppercase;
           padding: 0.5rem 3rem;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.3s;
           transform: translateY(6%);
+
+          &:hover {
+            background-color: #b28451;
+          }
         }
       }
     }
