@@ -13,6 +13,8 @@ const Title = ({ title, genres, openDetails, releaseYear }: TitleProps) => {
     console.log(`add ${releaseYear} to filters`);
   };
 
+  // TODO add original title like in MovieDetails.component
+
   return (
     <div className="title-container">
       <h2 className="title" onClick={openDetails} title="Show more details">

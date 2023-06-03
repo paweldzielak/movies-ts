@@ -37,10 +37,19 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
     getMovieRecommendations(details.id).then((r: RecommendationT[]) => setRecommendations(r));
   }, [details.id]);
 
+  // TODO add title as Title.component
+
   const imageSize = "md"; // change when other items are present
   // const breakpoint = useBreakpoint({ ssr: false });
 
   const imagePaths = images.backdrops.map(({ file_path }) => getMediaFullUrls(file_path)[imageSize]);
+
+  // console.log('details.overview words count:', details.overview.split(' ').length);
+  // console.log(details.genres);
+
+  // TODO add genres to details
+  // TODO add specific classes according to details.overview words count
+  // TODO add release year to this summary
 
   return (
     <div className="media-details">
