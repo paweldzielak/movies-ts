@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -11,6 +11,7 @@ import {
   ModalCloseButton,
   useDisclosure,
   ModalBody,
+  useBreakpoint,
 } from "@chakra-ui/react";
 
 import { useMovieContext } from "./context/movies.context";
@@ -45,6 +46,8 @@ const App = () => {
     // TODO remove /details/id from URL
   } 
 
+  const breakpoint = useBreakpoint({ ssr: false });
+
   return (
     <>
       <NavBar />
@@ -63,7 +66,7 @@ const App = () => {
         }} onClick={handleLoadMoreMovies}>Load more</Button>}
       <Modal isOpen={isOpen} onClose={handleModalClose}>
         <ModalOverlay />
-        <ModalContent minW={"80%"} bg="var(--color-blue-darker)">
+        <ModalContent minW={breakpoint === "2xl" ? '90vw' : '98vw'} bg="var(--color-blue-darker)">
           <ModalHeader bg="var(--color-blue-darker)" borderTopRadius="0.5rem">
             <ModalCloseButton
               bg="lightgray"
