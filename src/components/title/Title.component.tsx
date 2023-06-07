@@ -1,4 +1,5 @@
 import React from "react";
+import { Heading } from '@chakra-ui/react'
 import "./title.styles.scss";
 
 type TitleProps = {
@@ -17,9 +18,11 @@ const Title = ({ title, genres, openDetails, releaseYear }: TitleProps) => {
 
   return (
     <div className="title-container">
-      <h2 className="title" onClick={openDetails} title="Show more details">
+
+      <Heading as='h1' noOfLines={1} className="title" onClick={openDetails} title="Show more details">
         {title}
-      </h2>
+      </Heading>
+
       <div className="genre-container">
         {!!genres[0] && genres.map((genre) => {
           return <span key={title + genre} className="genre">{` ${genre}`}</span>;
