@@ -25,7 +25,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
   };
 
   const isFavorite = favoritesMovies.includes(movie.id);
-  
+
   const handleImdb = async () => {
     const details = await getDetails();
     const { imdb_id } = details;
@@ -45,22 +45,25 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
   return (
     <div className="movie-card">
       <img className="poster" src={movie.poster_path || "default-image.jpg"} alt={movie.title} />
-      <div className="title-description-container">
-        <Title title={movie.title} genres={movie.genres as string[]} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
-        <span className="description">{movie.overview}</span>
-      </div>
-      <div className="vote-favorite-container">
-        <span className="vote">{movie.vote_average}</span>
-        <FavoriteIcon fill={isFavorite ? "#ED8A19" : "none"}
-                    stroke={isFavorite ? "none" : "currentColor"}
-                    className="favoriteButton" onClick={() => handleBookmarked(movie.id)} />
-        <img
-          className="imdb-img"
-          alt={`Open ${movie.title} on IMDB`}
-          src={"imdb.svg"}
-          title={`Open ${movie.title} on IMDB`}
-          onClick={handleImdb}
-        />
+      <div className="movie-card__wrapper1">
+        <div className="title-description-container">
+          <Title title={movie.title} genres={movie.genres as string[]} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
+          <span className="description">{movie.overview}</span>
+        </div>
+
+        <div className="vote-favorite-container">
+          <span className="vote">{movie.vote_average}</span>
+          <FavoriteIcon fill={isFavorite ? "#ED8A19" : "none"}
+            stroke={isFavorite ? "none" : "currentColor"}
+            className="favoriteButton" onClick={() => handleBookmarked(movie.id)} />
+          <img
+            className="imdb-img"
+            alt={`Open ${movie.title} on IMDB`}
+            src={"imdb.svg"}
+            title={`Open ${movie.title} on IMDB`}
+            onClick={handleImdb}
+          />
+        </div>
       </div>
     </div>
   );
