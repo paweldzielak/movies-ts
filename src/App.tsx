@@ -68,6 +68,7 @@ const App = () => {
         <ModalOverlay />
         <ModalContent minW={breakpoint === "2xl" ? '90vw' : '98vw'} bg="var(--color-blue-darker)">
           <ModalHeader bg="var(--color-blue-darker)" borderTopRadius="0.5rem">
+            {/* TODO add new closeClearButton.component -> empty & and close modal */}
             <ModalCloseButton
               bg="lightgray"
               w="24px"

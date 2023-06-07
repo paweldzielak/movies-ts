@@ -55,6 +55,7 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
           <span className="vote">{movie.vote_average}</span>
           <FavoriteIcon fill={isFavorite ? "#ED8A19" : "none"}
             stroke={isFavorite ? "none" : "currentColor"}
+            // TODO add title on hover
             className="favoriteButton" onClick={() => handleBookmarked(movie.id)} />
           <img
             className="imdb-img"
