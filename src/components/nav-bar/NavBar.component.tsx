@@ -32,7 +32,7 @@ const NavBar = () => {
         <button className="navbar-button navbar-button__favorite" onClick={handleSwitchFavoriteList}>
           {isDisplayFavorites ? "Show all results" : "Show favorites only"}
         </button>
-        <InputGroup size="lg" w="">
+        <InputGroup size="lg" w="" className="navbar-button__input-wrapper">
           <InputLeftElement
             h="50px"
             w="50px"
