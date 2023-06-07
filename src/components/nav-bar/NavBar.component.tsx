@@ -52,8 +52,8 @@ const NavBar = () => {
             onChange={(e) => handleSearch(e.target.value)}
           />
           <InputRightElement h="50px" w="50px" m={"0 0.6rem"}>
-            <Button size="md" w="28px" h="28px" onClick={() => handleSearch("")}>
-              <Icon as={CloseIcon} fontSize="1.4rem" />
+            <Button variant="ghost" size="md" w="28px" h="28px" _hover={{ bgColor: 'whiteAlpha.500', border: '1px solid #ccc' }} onClick={() => handleSearch("")}>
+              <Icon as={CloseIcon} fontSize="1.4rem" color='white' />
             </Button>
           </InputRightElement>
         </InputGroup>
