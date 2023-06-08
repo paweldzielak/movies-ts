@@ -33,6 +33,13 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
     );
   };
 
+  const getOverviewFontSize = (overview: string) => {
+    const len = overview.split(" ").length;
+    if (len > 45) return 'sm';
+    if (len > 30) return 'md';
+    return 'lg';
+  }
+
   useEffect(() => {
     getMovieRecommendations(details.id).then((r: RecommendationT[]) => setRecommendations(r));
   }, [details.id]);
@@ -69,7 +76,7 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
         >
           {imagePaths.map((path) => <img src={path} alt="" key={path.split("/").pop()} />)}
         </Carousel>
-        <div className="media-details__overview">{details.overview}</div>
+        <div className={"media-details__overview " + getOverviewFontSize(details.overview)}>{details.overview}</div>
         <NumberDetails details={details} />
         {!!videos?.results?.length && <div className="media-details__videos">{getYoutubeEmbeded(videos.results[0].key)}</div>}
       </div>

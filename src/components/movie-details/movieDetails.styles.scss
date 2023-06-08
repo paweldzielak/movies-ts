@@ -77,11 +77,20 @@ $details-color-light: var(--color-grey-light-3);
 
   &__overview {
     max-width: 50rem;
-    font-size: 1.8rem;
     margin: auto;
     grid-row: 2 / 3;
     grid-column: 2 / 3;
     text-align: justify;
+
+    &.lg {
+      font-size: 1.8rem;
+    }
+    &.md {
+      font-size: 1.65rem;
+    }
+    &.sm {
+      font-size: 1.5rem;
+    }
   }
 
   &__numbers {
