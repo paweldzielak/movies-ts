@@ -55,7 +55,6 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
   // console.log(details.genres);
 
   // TODO add genres to details
-  // TODO add specific classes according to details.overview words count
   // TODO add release year to this summary
 
   return (
