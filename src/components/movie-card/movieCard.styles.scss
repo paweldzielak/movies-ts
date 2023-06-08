@@ -83,6 +83,7 @@ $summary-top-margin: 6rem;
         margin-top: $summary-top-margin;
         height: 3.5rem;
         width: 3.5rem;
+        min-width: 3.5rem;
       }
 
       .imdb-img {
@@ -104,7 +105,7 @@ $summary-top-margin: 6rem;
 
     .vote-favorite-container {
       flex-direction: row-reverse;
-      padding: 0 10rem;
+      padding: 0 5vw;
       margin-top: auto;
       margin-bottom: 0;
 
