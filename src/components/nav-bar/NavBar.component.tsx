@@ -7,6 +7,7 @@ import { useMovieContext } from "../../context/movies.context";
 import NavFilters from "./NavBarFilters.component";
 
 import "./nav-bar.styles.scss";
+import CloseClearButton from "../buttons/CloseClearButton";
 
 const NavBar = () => {
   const { filteredYears, filteredGenreIds, handleSwitchFavoriteList, isDisplayFavorites, handleSearch, searchQuery } = useMovieContext();
@@ -52,9 +53,7 @@ const NavBar = () => {
             onChange={(e) => handleSearch(e.target.value)}
           />
           <InputRightElement h="50px" w="50px" m={"0 0.6rem"}>
-            <Button variant="ghost" size="md" w="28px" h="28px" _hover={{ bgColor: 'whiteAlpha.500', border: '1px solid #ccc' }} onClick={() => handleSearch("")}>
-              <Icon as={CloseIcon} fontSize="1.4rem" color='white' />
-            </Button>
+            <CloseClearButton bg="dark" action={() => handleSearch("")} />
           </InputRightElement>
         </InputGroup>
         <button className="navbar-button navbar-button__filter" onClick={handleFilters}>
