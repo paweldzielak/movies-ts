@@ -8,7 +8,6 @@ import {
   ModalContent,
   ModalHeader,
   // ModalFooter,
-  ModalCloseButton,
   useDisclosure,
   ModalBody,
   useBreakpoint,
@@ -20,6 +19,7 @@ import { MovieDetailsT } from "./types/types";
 import NavBar from "./components/nav-bar/NavBar.component";
 import MovieCard from "./components/movie-card/MovieCard.component";
 import MovieDetails from "./components/movie-details/MovieDetails.component";
+import CloseClearButton from "./components/buttons/CloseClearButton";
 
 import "./App.css";
 
@@ -66,18 +66,9 @@ const App = () => {
         }} onClick={handleLoadMoreMovies}>Load more</Button>}
       <Modal isOpen={isOpen} onClose={handleModalClose}>
         <ModalOverlay />
-        <ModalContent minW={breakpoint === "2xl" ? '90vw' : '98vw'} bg="var(--color-blue-darker)">
-          <ModalHeader bg="var(--color-blue-darker)" borderTopRadius="0.5rem">
-            {/* TODO add new closeClearButton.component -> empty & and close modal */}
-            <ModalCloseButton
-              bg="lightgray"
-              w="24px"
-              h="24px"
-              fontSize="10px"
-              _hover={{
-                background: "white",
-              }}
-            />
+        <ModalContent minW={breakpoint === "2xl" ? '90vw' : '98vw'} bg="var(--color-blue-darker)" >
+          <ModalHeader padding={0} position={'relative'}>
+            <CloseClearButton bg="dark" action={onClose} className="modal-close-btn"/>
           </ModalHeader>
           <ModalBody bg="var(--color-blue-darker)">{modalChildren}</ModalBody>
           {/* <ModalFooter>{"modal footer txt"}</ModalFooter> */}

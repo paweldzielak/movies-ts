@@ -21,3 +21,9 @@
 .movies-card-container {
    margin-bottom: 30px;
 }
+
+.modal-close-btn {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+}
