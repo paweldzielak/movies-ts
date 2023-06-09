@@ -4,27 +4,26 @@ import "./title.styles.scss";
 
 type TitleProps = {
   title: string;
-  genres: string[];
+  originalTitle?: string | null
+  genres: string[] | null;
   openDetails: () => void;
   releaseYear: string | number | null;
 };
 
-const Title = ({ title, genres, openDetails, releaseYear }: TitleProps) => {
+const Title = ({ title, genres, openDetails, releaseYear, originalTitle = null }: TitleProps) => {
   const handleClickYearClick = () => {
     console.log(`add ${releaseYear} to filters`);
   };
 
-  // TODO add original title like in MovieDetails.component
-
   return (
     <div className="title-container">
-
       <Heading as='h1' noOfLines={1} className="title" onClick={openDetails} title="Show more details">
         {title}
+        {!(!originalTitle || originalTitle === title)
+          && <span className='original-title' key={originalTitle}>{originalTitle}</span>}
       </Heading>
-
       <div className="genre-container">
-        {!!genres[0] && genres.map((genre) => {
+        {!!genres && !!genres[0] && genres.map((genre) => {
           return <span key={title + genre} className="genre">{` ${genre}`}</span>;
         })}
       </div>

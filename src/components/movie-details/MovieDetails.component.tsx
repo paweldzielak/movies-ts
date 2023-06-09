@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { getMediaFullUrls, getYoutubeEmbeded } from "../../utils/media.utils";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
 import { Divider, useBreakpoint } from "@chakra-ui/react";
 import { getMovieRecommendations } from "../../utils/movie.utils";
-import { MovieDetailsT, RecommendationT } from "../../types/types";
+import { getMediaFullUrls, getYoutubeEmbeded } from "../../utils/media.utils";
+import { Genre, GenresEntity, MovieDetailsT, RecommendationT } from "../../types/types";
 import Recommendation from "./MovieRecommendation.component";
 import NumberDetails from "./NumberDetails.component";
-
+import Title from "../title/Title.component";
 
 import "./movieDetails.styles.scss";
 
@@ -22,17 +22,6 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
   const { images, videos } = details;
   const [recommendations, setRecommendations] = useState<RecommendationT[]>([]);
 
-  const getTitles = () => {
-    return details.original_title === details.title ? (
-      <span key={details.title}>{details.title}</span>
-    ) : (
-      <>
-        <span key={details.title}>{details.title}</span>
-        <span key={details.original_title}>{details.original_title}</span>
-      </>
-    );
-  };
-
   const getOverviewFontSize = (overview: string) => {
     const len = overview.split(" ").length;
     if (len > 45) return 'sm';
@@ -44,23 +33,21 @@ const MovieDetails: React.FC<MovieDetailsProps> = ({ details, openModal }) => {
     getMovieRecommendations(details.id).then((r: RecommendationT[]) => setRecommendations(r));
   }, [details.id]);
 
-  // TODO add title as Title.component
+  const getGenreForTitle = (genres : GenresEntity[] | null | undefined) => {
+    if (!genres) return null
+    return genres.map((g) => (g as Genre).name)
+  }
 
   const imageSize = "md"; // change when other items are present
   // const breakpoint = useBreakpoint({ ssr: false });
 
   const imagePaths = images.backdrops.map(({ file_path }) => getMediaFullUrls(file_path)[imageSize]);
 
-  // console.log('details.overview words count:', details.overview.split(' ').length);
-  // console.log(details.genres);
-
-  // TODO add genres to details
-  // TODO add release year to this summary
-
   return (
     <div className="media-details">
       <div className="media-details__container">
-        <div className="media-details__title">{getTitles()}</div>
+        {/* <div className="media-details__title">{getTitles()}</div> */}
+        <Title title={details.title} originalTitle={details.original_title} genres={getGenreForTitle(details.genres)} openDetails={() => {}} releaseYear={details.release_date}></Title>
         <Carousel
           className={`media-details__img-carousel img-${imageSize}`}
           autoPlay
