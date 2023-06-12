@@ -8,3 +8,11 @@
   font-size: 1.4rem;
 }
 
+@mixin details-numbers-horizontal {
+  flex-direction: row;
+  max-width: 340px;
+  width: 340px;
+  text-align: center;
+  margin-top: auto;
+  justify-self: center;
+}
