@@ -39,10 +39,6 @@ $summary-top-margin: 6rem;
     }
   }
 
-  &__wrapper1 {
-    display: flex;
-    flex-direction: row;
-
     & .description {
       margin: 0.5rem 3rem;
       display: flex;
@@ -87,11 +83,11 @@ $summary-top-margin: 6rem;
       }
 
       .imdb-img {
+        max-width: 7rem;
         margin-top: $summary-top-margin;
         cursor: pointer;
       }
     }
-  }
 
   @media only screen and (max-width: 650px) {
     gap: 0;
@@ -116,4 +112,11 @@ $summary-top-margin: 6rem;
       }
     }
   }
+
+  @media only screen and (max-width: 500px) {
+    > * {
+      border: 1px solid crimson;
+    }
+  }
+
 }

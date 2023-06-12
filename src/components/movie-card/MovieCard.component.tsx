@@ -45,7 +45,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
   return (
     <div className="movie-card">
       <img className="poster" src={movie.poster_path || "default-image.jpg"} alt={movie.title} />
-      <div className="movie-card__wrapper1">
         <div className="title-description-container">
           <Title title={movie.title} genres={movie.genres as string[]} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
           <span className="description">{movie.overview}</span>
@@ -65,7 +64,6 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
             onClick={handleImdb}
           />
         </div>
-      </div>
     </div>
   );
 };
