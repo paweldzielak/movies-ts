@@ -45,25 +45,22 @@ const MovieCard: React.FC<MovieCardProps> = ({ movie, openModal }) => {
   return (
     <div className="movie-card">
       <img className="poster" src={movie.poster_path || "default-image.jpg"} alt={movie.title} />
-        <div className="title-description-container">
-          <Title title={movie.title} genres={movie.genres as string[]} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
-          <span className="description">{movie.overview}</span>
-        </div>
-
-        <div className="vote-favorite-container">
-          <span className="vote">{movie.vote_average}</span>
-          <FavoriteIcon fill={isFavorite ? "#ED8A19" : "none"}
-            stroke={isFavorite ? "none" : "currentColor"}
-            // TODO add title on hover
-            className="favoriteButton" onClick={() => handleBookmarked(movie.id)} />
-          <img
-            className="imdb-img"
-            alt={`Open ${movie.title} on IMDB`}
-            src={"imdb.svg"}
-            title={`Open ${movie.title} on IMDB`}
-            onClick={handleImdb}
-          />
-        </div>
+      <Title title={movie.title} genres={movie.genres as string[]} openDetails={openDetails} releaseYear={getReleaseYear()}></Title>
+      <span className="description">{movie.overview}</span>
+      <div className="vote-favorite-container">
+        <span className="vote">{movie.vote_average}</span>
+        <FavoriteIcon fill={isFavorite ? "#ED8A19" : "none"}
+          stroke={isFavorite ? "none" : "currentColor"}
+          // TODO add title on hover
+          className="favorite-button" onClick={() => handleBookmarked(movie.id)} />
+        <img
+          className="imdb-img"
+          alt={`Open ${movie.title} on IMDB`}
+          src={"imdb.svg"}
+          title={`Open ${movie.title} on IMDB`}
+          onClick={handleImdb}
+        />
+      </div>
     </div>
   );
 };
