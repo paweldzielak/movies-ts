@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
-import { Input, InputGroup, InputLeftElement, useDisclosure, Button, InputRightElement, Icon } from "@chakra-ui/react";
-import { CloseIcon, Search2Icon } from "@chakra-ui/icons";
+import { Input, InputGroup, InputLeftElement, useDisclosure, InputRightElement, Icon } from "@chakra-ui/react";
+import { Search2Icon } from "@chakra-ui/icons";
 
 import { useMovieContext } from "../../context/movies.context";
 import NavFilters from "./NavBarFilters.component";
