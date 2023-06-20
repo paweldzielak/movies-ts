@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "lib": ["es6", "dom", "es2017"],
+    "lib": ["es6", "dom"],
     "rootDir": "src",
     "module": "commonjs",
     "target": "es5",
@@ -12,7 +12,6 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "esModuleInterop": true,
-    "types": ["cypress", "@testing-library/cypress"]
   },
   "include": [
     "./src"
