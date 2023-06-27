@@ -1,9 +1,8 @@
 import axios from "axios"
 import { range } from "./general.utils"
-import { FilteredYearT, Genre, MovieT } from "../types/types"
+import { FilteredYearT, Genre, MovieApiT } from "../types/types"
 
 const getMoviesByUrl = async (url: string) => {
-  // console.log('*getMoviesByUrl*');
   try {
     const { data } = await axios.get(url)
     return data
@@ -14,12 +13,12 @@ const getMoviesByUrl = async (url: string) => {
 }
 
 export const getMoviesHighestRated = async (page: string) => {
-  const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&page=${page}`
+  const url = `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_MOVIE_DB_API_KEY}&page=${page}`
   return await getMoviesByUrl(url);
 }
 
 export const getGenresMapFromAPI = async () => {
-  const url = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + process.env.REACT_APP_MOVIE_DB_API_KEY
+  const url = 'https://api.themoviedb.org/3/genre/movie/list?api_key=' + import.meta.env.VITE_MOVIE_DB_API_KEY
   const genreMap = new Map();
   try {
     // console.log('*getGenresMapFromAPI*');
@@ -52,20 +51,20 @@ export const getDiscoverMovies = async (page: string | number, filteredGenreIds:
   if (filteredGenreIds?.length) {
     genreAdditionalPath = `&with_genres=${filteredGenreIds.join(',')}`
   }
-  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&sort_by=vote_average.desc&vote_count.gte=${voteMin}&page=${page}${yearAdditionalString}${genreAdditionalPath}`
+  const url = `https://api.themoviedb.org/3/discover/movie?api_key=${import.meta.env.VITE_MOVIE_DB_API_KEY}&sort_by=vote_average.desc&vote_count.gte=${voteMin}&page=${page}${yearAdditionalString}${genreAdditionalPath}`
   return await getMoviesByUrl(url);
 }
 
 export const getSearchMovies = async (query: string, page: string | number, filteredGenreIds: number[], filteredYears: FilteredYearT[] = []) => {
   const yearAdditionalString = getYearUrlQueryString(filteredYears);
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&page=${page}${yearAdditionalString}${yearAdditionalString}&query=${query}`
+  const url = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_MOVIE_DB_API_KEY}&page=${page}${yearAdditionalString}${yearAdditionalString}&query=${query}`
   // TODO maybe manually filter genres due to lack of API relevant query parameter
   return await getMoviesByUrl(url);
 }
 
 export const getMovieMoreDetails = async (apiInternalMovieId: number, includeVideos = true, includeImages = true) => {
   const includeParamStr = `${includeImages ? 'images,' : ''}${includeVideos ? 'videos' : ''} `;
-  const url = `https://api.themoviedb.org/3/movie/${apiInternalMovieId}?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&append_to_response=${includeParamStr}`;
+  const url = `https://api.themoviedb.org/3/movie/${apiInternalMovieId}?api_key=${import.meta.env.VITE_MOVIE_DB_API_KEY}&append_to_response=${includeParamStr}`;
   const details = await getMoviesByUrl(url);
   return details
 }
@@ -73,10 +72,10 @@ export const getMovieMoreDetails = async (apiInternalMovieId: number, includeVid
 type RsortByT = 'popularity' | 'vote_average' | 'vote_count';
 
 export const getMovieRecommendations = async (apiInternalMovieId: number, sortBy: RsortByT = 'popularity', page = 1, all = true) => {
-  const urlPageTemplate = `https://api.themoviedb.org/3/movie/${apiInternalMovieId}/recommendations?api_key=${process.env.REACT_APP_MOVIE_DB_API_KEY}&page=`
+  const urlPageTemplate = `https://api.themoviedb.org/3/movie/${apiInternalMovieId}/recommendations?api_key=${import.meta.env.VITE_MOVIE_DB_API_KEY}&page=`
   const recommendations = await getMoviesByUrl(`${urlPageTemplate}${page}`);
 
-  const results = recommendations.results as MovieT[];
+  const results = recommendations.results as MovieApiT[];
 
   if (all && page < recommendations.total_pages) {
     const promises = range(page + 1, recommendations.total_pages, 1).map(currentPage => {
@@ -86,16 +85,16 @@ export const getMovieRecommendations = async (apiInternalMovieId: number, sortBy
     pages.forEach(singlePage => results.push(...singlePage.results));
   }
   const sorted = results.sort((first, second) => second[sortBy] - first[sortBy]);
-  const reduced = sorted.reduce((previousMovies: MovieT[], currentMovie: MovieT) => {
-    if (previousMovies.some((movie : MovieT) => movie.id === currentMovie.id)) return previousMovies;
+  const reduced = sorted.reduce((previousMovies: MovieApiT[], currentMovie: MovieApiT) => {
+    if (previousMovies.some((movie: MovieApiT) => movie.id === currentMovie.id)) return previousMovies;
     previousMovies.push(currentMovie);
     return previousMovies;
-  }, [] as MovieT[])
+  }, [] as MovieApiT[])
 
   return reduced
 }
 
-export const getAllMoviesByIds = async (ids: number[]) : Promise<MovieT[]> => {
+export const getAllMoviesByIds = async (ids: number[]): Promise<MovieApiT[]> => {
   const movieList = await Promise.all(ids.map(id => getMovieMoreDetails(id, false, false)));
   return movieList
 }

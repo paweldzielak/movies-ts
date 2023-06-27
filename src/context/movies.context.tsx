@@ -49,7 +49,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
     (movies: MovieApiT[], genres: Map<number, string> = genreMap) => {
       const properlyImplementedMovies = movies.filter(isMovieApiT)
       return properlyImplementedMovies.map((movie) => {
-        const result = {
+        const result: MovieT = {
           id: movie.id,
           title: movie.title,
           vote_average: Math.round(movie.vote_average * 10) / 10,
@@ -59,7 +59,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
           genres: movie.genre_ids?.map((id) => genres.get(id)) || movie.genres.map((g) => (g as Genre).name),
           release_date: movie.release_date,
         };
-        return result as MovieT;
+        return result;
       });
     },
     [genreMap]
@@ -79,8 +79,8 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
         results: movies,
         total_results,
       } = searchQ
-        ? await getSearchMovies(searchQ, currentPage + 1, filteredGenreIds, filteredYears)
-        : await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
+          ? await getSearchMovies(searchQ, currentPage + 1, filteredGenreIds, filteredYears)
+          : await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
       const moviesToSet = getParsedMovies(movies, genres);
       setCurrentPage(page);
       setTotalResults(total_results);
@@ -137,7 +137,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   }, [filteredGenreIds, filteredYears, handleCurrentMovies, genreMap.size, searchQuery]);
 
   useEffect(() => {
-    getAllMoviesByIds(favoritesMovies).then((fMovies: MovieT[]) => {
+    getAllMoviesByIds(favoritesMovies).then((fMovies: MovieApiT[]) => {
       setCurrentFavoriteMovies(getParsedMovies(fMovies));
     });
   }, [favoritesMovies, handleCurrentMovies, getParsedMovies]);
