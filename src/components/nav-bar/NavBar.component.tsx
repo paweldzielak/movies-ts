@@ -57,7 +57,7 @@ const NavBar = () => {
           </InputRightElement>
         </InputGroup>
         <button className="navbar-button navbar-button__filter" onClick={handleFilters}>
-          <span>Open filters</span>
+          Open filters
           {!!activeFilters && <span className="navbar-filter-button-counter">{activeFilters}</span>}
         </button>
       </div>
