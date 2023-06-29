@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import Select from "react-select";
+import Select, { MultiValue } from "react-select";
 import { Drawer, DrawerFooter, DrawerContent, DrawerOverlay, DrawerHeader, DrawerBody, Button, DrawerCloseButton } from "@chakra-ui/react";
 
 import "./nav-bar-filters.styles.scss";
@@ -21,7 +21,8 @@ const NavFilters: React.FC<NavFiltersProps> = ({ isFilterOpen, handleOnCloseFilt
   const { filteredYears, setFilteredYears, genreMap, setFilteredGenreIds, filteredGenreIds } = useMovieContext();
   const [yearOptions, setYearOptions] = React.useState<FilteredYearT[]>(getDefaultYearOptions);
 
-  const handleYearChange = (selectedList: FilteredYearT[]) => {
+  const handleYearChange = (multiValue: MultiValue<FilteredYearT>) => {
+    const selectedList = multiValue as FilteredYearT[];
     if (selectedList.length === 0) setYearOptions(getDefaultYearOptions());
     else if (selectedList.length === 1) selectedList[0].label = `exact ${selectedList[0].value}`;
     else if (selectedList.length === 2) {
@@ -35,7 +36,8 @@ const NavFilters: React.FC<NavFiltersProps> = ({ isFilterOpen, handleOnCloseFilt
     setFilteredYears(selectedList);
   };
 
-  const handleGenreChange = (selectedGenreList: Genre[]) => {
+  const handleGenreChange = (multipleValue: MultiValue<Genre>) => {
+    const selectedGenreList = multipleValue as Genre[]
     const filteredGenreIds = selectedGenreList.map((genre) => genre.id);
     setFilteredGenreIds(filteredGenreIds);
   };
@@ -69,7 +71,7 @@ const NavFilters: React.FC<NavFiltersProps> = ({ isFilterOpen, handleOnCloseFilt
                   value={filteredGenres}
                   className="react-select-container"
                   classNamePrefix="react-select"
-                  onChange={handleGenreChange}
+                  onChange={(multipleValue) => handleGenreChange(multipleValue)}
                   getOptionLabel={(genre) => genre.name}
                   getOptionValue={(genre) => genre.id.toString()}
                   options={genreOptions}
@@ -87,7 +89,7 @@ const NavFilters: React.FC<NavFiltersProps> = ({ isFilterOpen, handleOnCloseFilt
                   value={filteredYears}
                   className="react-select-container"
                   classNamePrefix="react-select"
-                  onChange={handleYearChange}
+                  onChange={(value) => handleYearChange(value)}
                   name="label"
                   options={yearOptions}
                 />

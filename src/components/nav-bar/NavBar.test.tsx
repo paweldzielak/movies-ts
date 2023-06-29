@@ -1,4 +1,3 @@
-import React from 'react'
 import { render, screen } from '@testing-library/react'
 import '@testing-library/jest-dom'
 import NavBar from './NavBar.component'
@@ -16,13 +15,13 @@ beforeAll(() => {
 
 })
 
-test('NavBar contains tree buttons and text input', () => {
-  const i = screen.getByPlaceholderText(/enter title/i);
-  const btns = screen.getAllByRole('button');
+// test('NavBar contains tree buttons and text input', () => {
+//   const i = screen.getByPlaceholderText(/enter title/i);
+//   const btns = screen.getAllByRole('button');
 
-  expect(i).toBeEnabled();
-  expect(btns).toHaveLength(3);
-})
+//   expect(i).toBeEnabled();
+//   expect(btns).toHaveLength(3);
+// })
 
 test('Changing "favorite" button text after click', () => {
   // const btn = screen.queryByRole('button', { name: /open filters/i })

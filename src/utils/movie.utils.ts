@@ -55,7 +55,7 @@ export const getDiscoverMovies = async (page: string | number, filteredGenreIds:
   return await getMoviesByUrl(url);
 }
 
-export const getSearchMovies = async (query: string, page: string | number, filteredGenreIds: number[], filteredYears: FilteredYearT[] = []) => {
+export const getSearchMovies = async (query: string, page: string | number, filteredYears: FilteredYearT[] = []) => {
   const yearAdditionalString = getYearUrlQueryString(filteredYears);
   const url = `https://api.themoviedb.org/3/search/movie?api_key=${import.meta.env.VITE_MOVIE_DB_API_KEY}&page=${page}${yearAdditionalString}${yearAdditionalString}&query=${query}`
   // TODO maybe manually filter genres due to lack of API relevant query parameter

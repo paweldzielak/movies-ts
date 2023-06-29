@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 
-import { Divider, useBreakpoint } from "@chakra-ui/react";
+import { Divider } from "@chakra-ui/react";
 import { getMovieRecommendations } from "../../utils/movie.utils";
 import { getMediaFullUrls, getYoutubeEmbeded } from "../../utils/media.utils";
 import { Genre, GenresEntity, MovieDetailsT, RecommendationT } from "../../types/types";

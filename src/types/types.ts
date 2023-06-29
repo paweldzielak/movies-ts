@@ -4,8 +4,8 @@ export type Genre = {
 }
 
 export type FilteredYearT = {
-    "label": string;
-    "value": number;
+    label: string;
+    value: number;
 }
 
 export type MovieApiT = {

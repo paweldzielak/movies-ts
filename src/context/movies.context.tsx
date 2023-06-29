@@ -79,7 +79,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
         results: movies,
         total_results,
       } = searchQ
-          ? await getSearchMovies(searchQ, currentPage + 1, filteredGenreIds, filteredYears)
+          ? await getSearchMovies(searchQ, currentPage + 1, filteredYears)
           : await getDiscoverMovies(currentPage + 1, filteredGenreIds, 1000, filteredYears);
       const moviesToSet = getParsedMovies(movies, genres);
       setCurrentPage(page);
