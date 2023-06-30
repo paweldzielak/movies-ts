@@ -1,35 +1,47 @@
-import { render, screen } from '@testing-library/react'
-import '@testing-library/jest-dom'
-import NavBar from './NavBar.component'
+import { render, screen, waitFor } from '@testing-library/react';
+import user from '@testing-library/user-event';
 
-import { MoviesContextProvider } from '../../context/movies.context'
+import { vi } from 'vitest';
 
-beforeAll(() => {
+import NavBar from './NavBar.component';
+
+import { MovieContext, useMovieContext } from '../../context/movies.context';
+
+const handleSearch = vi.fn()
+beforeEach(() => {
+  const values = useMovieContext();
   render(
-    <MoviesContextProvider>
+    <MovieContext.Provider value={{...values,  handleSearch}}>
       <NavBar />
-    </MoviesContextProvider>
+    </MovieContext.Provider>
   )
-  screen.debug()
-  console.log('before all');
-
+  screen.debug();
 })
 
-// test('NavBar contains tree buttons and text input', () => {
-//   const i = screen.getByPlaceholderText(/enter title/i);
-//   const btns = screen.getAllByRole('button');
+test('NavBar contains three buttons and text input', () => {
+  const input = screen.getByPlaceholderText(/enter title/i);
+  const buttons = screen.getAllByRole('button');
 
-//   expect(i).toBeEnabled();
-//   expect(btns).toHaveLength(3);
+  expect(input).toBeEnabled();
+  expect(buttons).toHaveLength(3);
+})
+
+// test('Changing "favorite" button text after click', async () => {
+//   const btnOld = screen.getByRole('button', { name: /show favorites only/i })
+//   expect(btnOld).toBeEnabled();
+//   user.click(btnOld);
+
+//   await waitFor(() => expect(screen.queryByRole('button', { name: /show favorites only/i })).not.toBeInTheDocument());
+
+//   const btnNew = screen.getByRole('button', { name: /show all results/i });
+//   expect(btnNew).toBeInTheDocument();
 // })
 
-test('Changing "favorite" button text after click', () => {
-  // const btn = screen.queryByRole('button', { name: /open filters/i })
-  const btns = screen.getAllByRole('button');
-  btns.forEach(btn => {
-    console.log(btn.textContent)
-  })
-  // expect(btn).toBeEnabled();
+// test('checks if function is called when the input value changes', () => {
+//   const emptyInput = screen.getByPlaceholderText(/enter title/i);
+//   expect(emptyInput).toBeEnabled();
+//   user.type(emptyInput, 'aaa');
+  
+//   expect(handleSearch).toHaveBeenCalledTimes(0);
 
-  // expect(btn).toBeDisabled();
-})
+// })
