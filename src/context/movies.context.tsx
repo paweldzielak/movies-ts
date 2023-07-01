@@ -22,9 +22,9 @@ export type MovieContextState = {
   searchQuery: string;
 };
 
-const MovieContext = createContext({} as MovieContextState);
+export const MovieContext = createContext({} as MovieContextState);
 
-export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
+export const MovieContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const [currentMovies, setCurrentMovies] = useState<MovieT[]>([]);
   const [currentFavoriteMovies, setCurrentFavoriteMovies] = useState<MovieT[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
@@ -108,7 +108,7 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
       handleSwitchFavoriteList,
       isDisplayFavorites,
       handleSearch,
-      searchQuery
+      searchQuery: searchQuery
     }),
     [
       currentMovies,
@@ -129,22 +129,26 @@ export const MoviesContextProvider: FC<PropsWithChildren> = ({ children }) => {
   );
 
   useEffect(() => {
+    // loading genre map
     if (genreMap.size) return;
     getGenresMapFromAPI().then((genreMap) => {
-      handleCurrentMovies(searchQuery, genreMap, 0, [], filteredGenreIds, filteredYears);
       setGenreMap(genreMap);
     });
-  }, [filteredGenreIds, filteredYears, handleCurrentMovies, genreMap.size, searchQuery]);
+  }, [filteredGenreIds, filteredYears, handleCurrentMovies, genreMap.size]);
 
   useEffect(() => {
+    // call every time when favorite movies need to be loaded
+    if (!genreMap.size || favoritesMovies.length === currentFavoriteMovies.length) return;
     getAllMoviesByIds(favoritesMovies).then((fMovies: MovieApiT[]) => {
       setCurrentFavoriteMovies(getParsedMovies(fMovies));
     });
   }, [favoritesMovies, handleCurrentMovies, getParsedMovies]);
 
   useEffect(() => {
+    // call on filter change
+    if (!genreMap.size) return;
     handleCurrentMovies(searchQuery, genreMap, 0, [], filteredGenreIds, filteredYears);
-  }, [searchQuery, filteredGenreIds, filteredYears, handleCurrentMovies, genreMap]);
+  }, [filteredGenreIds, filteredYears, handleCurrentMovies]);
 
   return <MovieContext.Provider value={contextValue}>{children}</MovieContext.Provider>;
 };
