@@ -34,7 +34,7 @@ const NavBar = () => {
     setLocalSearchQuery('');
   }
 
-  const debouncedChange = useDebounce(handleSearch);
+  const debouncedChange = useDebounce(handleSearch, 750);
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
