@@ -1,5 +1,5 @@
 import MovieCardList from "./components/movie-cards-list/MovieCardList";
-import { MoviesContextProvider } from "./context/movies.context";
+import { MovieContextProvider } from "./context/movies.context";
 import { ChakraProvider } from "@chakra-ui/react";
 import { UserDataProvider } from './context/user-data.context';
 import "./App.css";
@@ -8,9 +8,9 @@ const App = () => {
   return (
     <ChakraProvider>
       <UserDataProvider>
-        <MoviesContextProvider>
+        <MovieContextProvider>
           <MovieCardList />
-        </MoviesContextProvider>
+        </MovieContextProvider>
       </UserDataProvider>
     </ChakraProvider>
   )
